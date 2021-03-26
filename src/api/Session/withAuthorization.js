@@ -1,64 +1,87 @@
-import React from "react";
+import React, { Component, createElement } from "react";
+import PropTypes from "prop-types";
+import omit from "lodash.omit";
 
 import AuthUserContext from "./context";
-import { withFirebase } from "../Firebase";
-import NotEboard from "../../components/main-site/NotEboard";
+import Firebase, { withFirebase } from "../Firebase";
 
-const withAuthorization = (condition) => (Component) => {
-  class WithAuthorization extends React.Component {
-    _initFirebase = false;
+export class WithAuthorizationClass extends Component {
+  _initFirebase = false;
+  static contextType = AuthUserContext;
 
-    savePathname = () =>
-      window.localStorage.setItem(
-        "pathname",
-        this.props.location.pathname.replace(this.props.pathPrefix, "")
-      );
+  firebaseInit = () => {
+    if (this.props.firebase && !this._initFirebase) {
+      this._initFirebase = true;
 
-    firebaseInit = () => {
-      if (this.props.firebase && !this._initFirebase) {
-        this._initFirebase = true;
-
-        this.listener = this.props.firebase.onAuthUserListener(
-          (authUser) => {
-            if (!authUser) {
-              console.log("no auth user found")
-              this.savePathname();
-              window.location.href = "/login";
-            }
-          },
-          () => {
-              console.log("authorization fallback")
-            this.savePathname();
-            window.location.href = "/login";
-          }
-        );
-      }
-    };
-
-    componentDidMount() {
-      this.firebaseInit();
-    }
-
-    componentDidUpdate() {
-      this.firebaseInit();
-    }
-
-    componentWillUnmount() {
-      this.listener && this.listener();
-    }
-
-    render() {
-      return (
-        <AuthUserContext.Consumer>
-          {(authUser) =>
-            condition(authUser) ? <Component {...this.props} /> : <NotEboard />
-          }
-        </AuthUserContext.Consumer>
+      this.listener = this.props.firebase.onAuthUserListener(
+        this.props.firebaseAuthNext,
+        this.props.firebaseAuthFallback
       );
     }
+  };
+
+  componentDidMount() {
+    this.firebaseInit();
   }
 
-  return withFirebase(WithAuthorization);
+  componentDidUpdate() {
+    this.firebaseInit();
+  }
+
+  componentWillUnmount() {
+    this.listener && this.listener();
+  }
+
+  render() {
+    const authUser = this.context;
+    const filteredProps = omit(this.props, [
+      "firebase",
+      "firebaseAuthNext",
+      "firebaseAuthFallback",
+      "condition",
+      "authorizationPassed",
+      "authorizationFailed",
+    ]);
+    return this.props.condition(authUser)
+      ? createElement(this.props.authorizationPassed, filteredProps)
+      : this.props.authorizationFailed;
+  }
+}
+WithAuthorizationClass.displayName = "WithAuthorizationClass";
+
+WithAuthorizationClass.propTypes = {
+  firebase: PropTypes.instanceOf(Firebase),
+  firebaseAuthNext: PropTypes.func.isRequired,
+  firebaseAuthFallback: PropTypes.func.isRequired,
+  condition: PropTypes.func.isRequired,
+  authorizationPassed: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+    PropTypes.elementType,
+  ]).isRequired,
+  authorizationFailed: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+    PropTypes.elementType,
+  ]).isRequired,
 };
 
+let WithAuthorizationWrapper = (props) => <WithAuthorizationClass {...props} />;
+export const setWithAuthorizationWrapper = (Component) => {
+  WithAuthorizationWrapper = Component;
+};
+
+const withAuthorization = (condition) => (Component) => {
+  // eslint-disable-next-line react/prop-types
+  const WithCondition = (props) => (
+    <WithAuthorizationWrapper
+      condition={condition}
+      authorizationPassed={Component}
+      {...props}
+    />
+  );
+  WithCondition.displayName = "WithCondition";
+
+  return withFirebase(WithCondition);
+};
 export default withAuthorization;

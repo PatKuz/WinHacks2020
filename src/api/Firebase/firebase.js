@@ -1,35 +1,22 @@
-import * as app from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
-import "firebase/storage";
-import "firebase/functions";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCOHqX_I8tCXBGWQmLwnExa62tz8m4ua9I",
-  authDomain: "classconnect-9045d.firebaseapp.com",
-  databaseURL: "https://upe-website-fa07a.firebaseio.com",
-  projectId: "classconnect",
-  storageBucket: "classconnect.appspot.com",
-  messagingSenderId: "337392650612",
-  appId: "1:337392650612:web:2ed7dc77874341a7cec421",
-  measurementId: "G-VYVYWCQLP1",
-};
-
 class Firebase {
-  constructor() {
-    app.initializeApp(firebaseConfig);
-
+  constructor(app, config) {
+    if (!config) throw new Error("No Firebase config given!");
+	
+    app.initializeApp(config);
     this.auth = app.auth();
     this.firestore = app.firestore();
-    this.storage = app.storage();
-    this.functions = app.functions();
   }
 
   // *** Auth API ***
-
   doSignInWithToken = (token) => this.auth.signInWithCustomToken(token);
 
-  doSignOut = () => this.auth.signOut();
+  doSignOut = () =>
+    this.auth.signOut().then(() => localStorage.removeItem("authUser"));
+
+  getIdToken = () => {
+    if (this.auth.currentUser) return this.auth.currentUser.getIdToken();
+    else return new Promise((resolve) => resolve(null));
+  };
 
   // *** Merge Auth and DB User API ***
   onAuthUserListener = (next, fallback) =>
@@ -40,6 +27,7 @@ class Firebase {
           .then(async (snapshot) => {
             if (snapshot.exists) {
               const dbUser = snapshot.data();
+              // eslint-disable-next-line no-prototype-builtins
               if (!dbUser.hasOwnProperty("roles")) {
                 dbUser.roles = {
                   guest: true,
@@ -84,18 +72,23 @@ class Firebase {
       }
     });
 
-  // *** Users API ***
-  
+  // *** User API ***
   user = (uid) => this.firestore.doc(`users/${uid}`);
-
-  getIdToken = () => {
-    if (this.auth.currentUser) return this.auth.currentUser.getIdToken();
-    else return new Promise((resolve) => resolve(null));
-  };
-
-  // *** Functions API ***
-
-  callFun = (funName) => this.functions.httpsCallable(funName);
+  users = () => this.firestore.collection("users");
 }
+
+let firebase;
+let firebaseClass = Firebase;
+export const getFirebase = (app) => {
+  if (!firebase) {
+    firebase = new firebaseClass(app);
+  }
+
+  return firebase;
+};
+
+export const setFirebaseClass = (newClass) => {
+  firebaseClass = newClass;
+};
 
 export default Firebase;

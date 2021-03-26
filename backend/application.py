@@ -1,4 +1,5 @@
 from flask import Flask
+from Response import Response
 app = Flask(__name__)
 
 class question:
@@ -19,4 +20,4 @@ def hello_world():
 @app.route('/getCode')
 def gen_key():
     import secrets
-    return secrets.token_hex(3)
+    return Response({'code' : secrets.token_hex(3)}, status=200)

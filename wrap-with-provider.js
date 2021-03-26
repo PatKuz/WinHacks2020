@@ -20,7 +20,7 @@ import { pathPrefix } from "./gatsby-config";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
 
-export default ({ element }) => {
+const fn = ({ element }) => {
   setFirebaseClass(Firebase);
 
   const WithAuthorizationWrapper = (props) => {
@@ -71,3 +71,5 @@ export default ({ element }) => {
 
   return element;
 };
+
+export default fn;

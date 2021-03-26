@@ -17,6 +17,8 @@ const ErrorComponent = ({ error, errorInfo }) => (
   </Centered>
 );
 
-export default ({ children }) => (
+const fn = ({ children }) => (
   <Layout errorComponent={ErrorComponent}>{children}</Layout>
 );
+
+export default fn;

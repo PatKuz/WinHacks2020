@@ -1,7 +1,7 @@
 class Firebase {
   constructor(app, config) {
     if (!config) throw new Error("No Firebase config given!");
-
+	
     app.initializeApp(config);
     this.auth = app.auth();
     this.firestore = app.firestore();

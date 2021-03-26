@@ -5,7 +5,7 @@ const FooterContainer = styled.footer`
   width: 100%;
   height: 60px;
   background: #333333;
-  border-bottom: 3px solid ${(props) => props.theme.palette.mainBrand};
+  border-bottom: 3px solid #004599;
   display: flex;
   flex-direction: row;
   align-items: center;

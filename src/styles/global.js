@@ -59,15 +59,15 @@ export default createGlobalStyle`
     width: 16px;
   }
   .modal-content {
-    background-color: ${(props) => props.theme.global.bg};
+    background-color: "#201e20";
     button.close {
-      color: ${(props) => props.theme.global.color};
+      color: "#fff";
     }
   }
   /*
   .btn.btn-primary {
-    background-color: ${(props) => props.theme.palette.mainBrand};
-    border-color: ${(props) => props.theme.palette.mainBrand};
+    background-color: "#004599";
+    border-color: "#004599";
   }
   */
   /* CUSTOM STYLES */
@@ -79,19 +79,19 @@ export default createGlobalStyle`
     height: 100%;
   }
   body {
-    background-color: ${(props) => props.theme.global.bg};
-    color: ${(props) => props.theme.global.color};
+    background-color: "#201e20";
+    color: "#fff";
     transition: background 0.2s ease-out;
   }
   .text-muted {
-    color: ${(props) => props.theme.global.muted} !important;
+    color: "#96a2ad" !important;
   }
   /*
   a {
-    color: ${(props) => props.theme.global.link};
+    color: "#f21131";
   }
   a:hover {
-    color: ${(props) => props.theme.global.linkHover};
+    color: "#8b8e95";
   }
   */
   .swal-icon.swal-icon--custom {

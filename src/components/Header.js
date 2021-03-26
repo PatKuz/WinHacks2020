@@ -8,7 +8,7 @@ import { withFirebase } from "../api/Firebase";
 
 const Navbar = styled(BootstrapNavbar)`
   background: #333333;
-  border-top: 3px solid ${(props) => props.theme.palette.mainBrand};
+  border-top: 3px solid #004599;
   color: white;
   padding: 1rem 1rem;
 `;

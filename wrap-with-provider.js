@@ -3,7 +3,7 @@ import { navigate } from "gatsby";
 import { useLocation } from "@reach/router";
 import { withTheme } from "styled-components";
 
-import setLayoutBase from "./src/api/Layout";
+import { setLayoutBase } from "./src/api/Layout";
 import { setFirebaseClass } from "./src/api/Firebase";
 
 import {
@@ -11,7 +11,7 @@ import {
   WithAuthorizationClass,
 } from "./src/api/Session";
 
-import Firebase from "./src/api/Firebase";
+import Firebase from "./src/components/Firebase";
 import Header from "./src/components/Header";
 import Footer from "./src/components/Footer";
 import GlobalStyle, { Centered } from "./src/styles/global";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Layout } from "../api/Layout";
+import Layout from "../api/Layout";
 import { Centered } from "../styles/global";
 
 const ErrorComponent = ({ error, errorInfo }) => (

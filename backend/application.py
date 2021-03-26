@@ -8,8 +8,6 @@ def hello_world():
 
 
 @app.route('/getCode')
-def get_code():
-    return generate()
-
-
-
+def gen_key():
+    import secrets
+    return secrets.token_hex(3)

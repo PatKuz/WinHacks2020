@@ -1,4 +1,8 @@
 node_modules/
 .cache/
 public
-venv/
+venv/*
+.idea/*
+env/*
+__pycache__/*
+backend/__pycache__/*

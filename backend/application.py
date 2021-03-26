@@ -1,5 +1,4 @@
 from flask import Flask
-from keygen import generate
 app = Flask(__name__)
 
 @app.route('/')

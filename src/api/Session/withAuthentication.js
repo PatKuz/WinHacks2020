@@ -1,20 +1,16 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import AuthUserContext from "./context";
-import { withFirebase } from "../Firebase";
+import Firebase, { withFirebase } from "../Firebase";
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
     _initFirebase = false;
     _isMounted = false;
-
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        authUser: null,
-      };
-    }
+    state = {
+      authUser: null,
+    };
 
     safeSetState = (state) => this._isMounted && this.setState(state);
 
@@ -56,11 +52,18 @@ const withAuthentication = (Component) => {
     render() {
       return (
         <AuthUserContext.Provider value={this.state.authUser}>
-          <Component {...this.props} />
+          <Component>{this.props.children}</Component>
         </AuthUserContext.Provider>
       );
     }
   }
+
+  WithAuthentication.displayName = "WithAuthentication";
+
+  WithAuthentication.propTypes = {
+    children: PropTypes.node.isRequired,
+    firebase: PropTypes.instanceOf(Firebase),
+  };
 
   return withFirebase(WithAuthentication);
 };

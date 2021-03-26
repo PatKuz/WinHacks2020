@@ -8,3 +8,6 @@ __pycache__/*
 backend/__pycache__/*
 backend/certs/*
 /backend/creds.json
+.DS_Store
+backend/.DS_Store
+backend/cockroach-v20.2.5.darwin-10.9-amd64/

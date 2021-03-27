@@ -9,7 +9,7 @@ import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 import Room from "../components/Room";
 
-import Background from "../images/pattern.svg";
+import Background from "../images/pattern_3.svg";
 
 const StyledCentered = styled(Centered)`
 	background: url(${Background});

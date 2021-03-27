@@ -101,12 +101,17 @@ class Room extends React.Component {
 	constructor(){
         super();
         this.state = {
+			studentID: "",
             showHide : false,
 			questionTitle : "",
 			questionBody : "",
-			chips: [] //The input tags
+			chips: [],
         }
     }
+	
+	componentDidMount() {
+		//Generate student id
+	}
 
     handleModalShowHide() {
         this.setState({ showHide: !this.state.showHide })
@@ -123,11 +128,15 @@ class Room extends React.Component {
 		this.setState({ chips });
 	  };
 
-
+	submitQuestion = () => {
+		const { questionTitle, questionBody, chips, studentID } = this.state;
+		
+		this.handleModalShowHide();
+		this.props.addQuestion(this.props.room.id, {title: questionTitle, body: questionBody, tags: chips }, studentID)
+	};
+	
 	render() {
-		const { showHide } = this.state;
-		const {questionTitle} = this.state;
-		const {questionBody} = this.state;
+		const { showHide, questionTitle, questionBody, chips, studentID } = this.state;
 
 		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
 			console.log(this.props.room.questions[key]);
@@ -185,7 +194,7 @@ class Room extends React.Component {
                     <Button onClick={() => this.handleModalShowHide()}>
                         Close
                     </Button>
-                    <Button onClick={() => this.handleModalShowHide()}>
+                    <Button onClick={() => this.submitQuestion()}>
                         Post Question
                     </Button>
                     </Modal.Footer>

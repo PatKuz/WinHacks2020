@@ -99,7 +99,8 @@ class IndexPage extends Component {
 		});
 	};
 	
-	addQuestion = (roomId, question) => {
+	addQuestion = (roomId, question, studentID) => {
+		console.log(roomId, question, studentID);
 		
 	};
 	
@@ -119,7 +120,7 @@ class IndexPage extends Component {
 					<StyledCentered>
 						<Logo size="large"/>
 						<h1> {errorMsg} </h1>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister}/>
+						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister} addQuestion={this.addQuestion} />
 					</StyledCentered>
 				</>
 			);
@@ -129,7 +130,7 @@ class IndexPage extends Component {
 					<SEO title="Home" route="/" />
 					<StyledCentered>
 						<Logo size="large"/>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister} />
+						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister} addQuestion={this.addQuestion} />
 					</StyledCentered>
 				</>
 			);
@@ -140,7 +141,7 @@ class IndexPage extends Component {
 					<StyledCentered>
 						<Logo size="large"/>
 						<h1> Room not found! </h1>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister} />
+						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister} addQuestion={this.addQuestion} />
 					</StyledCentered>
 				</>
 			);

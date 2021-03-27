@@ -106,6 +106,8 @@ body {
   height: 100%;
   color: #ffffff;
   background-color: #ffffff;
+  border-left: 2px solid #242424;
+  border-right: 2px solid #242424;
   z-index: -999;
 }
 
@@ -117,10 +119,11 @@ body {
   display: inline-block;
   padding: 10px 10px;
   width: 90%;
-  border-radius: 3px;
+  border-radius: 10px;
   margin-top: 8px;
   text-align: left;
-  height: 95px;
+  height: 105px;
+  border: 2px solid #242424;
 }
 
 .question--body {
@@ -130,10 +133,19 @@ body {
 .vote--icon {
   color: #242424;
   transition-duration: 0.2s;
-  margin-left: 98%;
+  margin-left: 90%;
   cursor: pointer;
+  text-decoration: none;
+  border-radius: 18px;
+  border: 2px solid #242424;
+  padding: 2px 8px;
 }
 
 .vote--icon:hover {
-  color: #22BC22;
+  background-color: #22BC22;
+  color: #ffffff;
+}
+
+.vote--wrapper {
+  margin-right: 3px;
 }

@@ -1,14 +1,14 @@
-import * as React from "react"
-import styled from 'styled-components'
+import * as React from "react";
+import styled from "styled-components";
 
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const StyledFormGroup = styled(Form.Group)`
   background-color: #ffffff;
   border-radius: 2px;
   padding: 20px 20px;
-  font-family: 'Overpass', sans-serif;
+  font-family: "Overpass", sans-serif;
   font-size: 20px;
   color: #242424;
   display: inline-block;
@@ -22,7 +22,7 @@ const StyledFormControl = styled(Form.Control)`
   width: 400px;
   height: 75px;
   margin-left: 20px;
-  font-family: 'Overpass', sans-serif;
+  font-family: "Overpass", sans-serif;
   font-size: 20px;
   display: inline-block;
 `;
@@ -35,7 +35,7 @@ const StyledFormControlz = styled(Form.Control)`
   width: 400px;
   height: 75px;
   margin-left: 22px;
-  font-family: 'Overpass', sans-serif;
+  font-family: "Overpass", sans-serif;
   font-size: 20px;
   display: inline-block;
 `;
@@ -59,66 +59,57 @@ const StyledButton = styled(Button)`
     background-color: #f2f3f4;
     color: #242424;
     border: 2px solid #242424;
-  };
+  }
 `;
 
 class Register extends React.Component {
-	state = {
-		email: "",
-		password: "",
-		name: "",
-	}
+  state = {
+    email: "",
+    password: "",
+    name: "",
+  };
 
+  render() {
+    const { email, password, name } = this.state;
 
-	render() {
-	  const {email, password, name} = this.state;
+    return (
+      <>
+        <Form>
+          <StyledFormGroup controlId="emailField">
+            Email
+            <StyledFormControlz
+              type="email"
+              value={email}
+              onChange={(e) => this.setState({ email: e.target.value })}
+            />
+          </StyledFormGroup>
+          <StyledFormGroup controlId="passwordField">
+            Password
+            <StyledFormControl
+              type="text"
+              value={password}
+              onChange={(e) => this.setState({ password: e.target.value })}
+            />
+          </StyledFormGroup>
+          <StyledFormGroup controlId="nameField">
+            Name
+            <StyledFormControl
+              type="text"
+              value={name}
+              onChange={(e) => this.setState({ name: e.target.value })}
+            />
+          </StyledFormGroup>
+        </Form>
 
-	  return (
-		<>
-            <Form>
-              <StyledFormGroup controlId="emailField">
-			     Email
-                <StyledFormControlz
-                  type="email"
-                  value={email}
-                  onChange={(e) =>
-                    this.setState({ email: e.target.value })
-                  }
-                />
-              </StyledFormGroup>
-              <StyledFormGroup controlId="passwordField">
-			    Password
-                <StyledFormControl
-                  type="text"
-                  value={password}
-                  onChange={(e) =>
-                    this.setState({ password: e.target.value })
-                  }
-                />
-              </StyledFormGroup>
-              <StyledFormGroup controlId="nameField">
-          Name
-                <StyledFormControl
-                  type="text"
-                  value={name}
-                  onChange={(e) =>
-                    this.setState({ name: e.target.value })
-                  }
-                />
-              </StyledFormGroup>
-            </Form>
-
-            <StyledButton
-              variant="primary"
-              onClick={() =>
-                this.props.attemptRegister(name, email, password)
-              }
-            >
-              Register
-            </StyledButton>
-		</>
-	  );
-	}
-};
+        <StyledButton
+          variant="primary"
+          onClick={() => this.props.attemptRegister(name, email, password)}
+        >
+          Register
+        </StyledButton>
+      </>
+    );
+  }
+}
 
 export default Register;

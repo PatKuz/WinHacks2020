@@ -196,7 +196,7 @@ class Room extends React.Component {
 								/>	
 					</Modal.Body>
                     <Modal.Footer>
-                    <Button onClick={() => this.handleModalShowHide()}>
+					<Button variant = "secondary" onClick={() => this.handleModalShowHide()}>
                         Close
                     </Button>
                     <Button onClick={() => this.submitQuestion()}>

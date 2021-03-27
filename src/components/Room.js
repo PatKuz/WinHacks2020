@@ -132,6 +132,7 @@ class Room extends React.Component {
       questionTitle: "",
       questionBody: "",
       chips: [],
+      errorMsg: "",
     };
   }
 
@@ -170,24 +171,35 @@ class Room extends React.Component {
 
   submitQuestion = () => {
     const { questionTitle, questionBody, chips, studentID } = this.state;
+    this.setState({ errorMsg: "" });
 
-    this.handleModalShowHide();
-    this.setState({ questionTitle: "", questionBody: "", chips: [] });
-    this.props.addQuestion(
-      this.props.room.id,
-      uuidv4(),
-      {
-        title: questionTitle,
-        description: questionBody,
-        tags: chips,
-        upvotes: {},
-      },
-      studentID
-    );
+    if (questionTitle !== "" && questionBody !== "") {
+      this.handleModalShowHide();
+      this.setState({ questionTitle: "", questionBody: "", chips: [] });
+      this.props.addQuestion(
+        this.props.room.id,
+        uuidv4(),
+        {
+          title: questionTitle,
+          description: questionBody,
+          tags: chips,
+          upvotes: {},
+        },
+        studentID
+      );
+    } else {
+      this.setState({ errorMsg: "Questions need a title and description!" });
+    }
   };
 
   render() {
-    const { showHide, questionTitle, questionBody, chips } = this.state;
+    const {
+      showHide,
+      questionTitle,
+      questionBody,
+      chips,
+      errorMsg,
+    } = this.state;
 
     const Questions = () =>
       Object.keys(this.props.room.questions).map((key) => {
@@ -223,6 +235,7 @@ class Room extends React.Component {
             <Modal.Title>Enter Question</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <h5> {errorMsg} </h5>
             <Form>
               <StyledFormGroup controlId="question">
                 <StyledFormControl

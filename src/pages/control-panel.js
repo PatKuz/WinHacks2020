@@ -9,7 +9,7 @@ import TeacherRoom from "../components/TeacherRoom";
 import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 
-import Background from "../images/home-background.png";
+import Background from "../images/pattern_3.svg";
 
 const StyledCentered = styled(Centered)`
   background: url(${Background});

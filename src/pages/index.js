@@ -66,6 +66,7 @@ class IndexPage extends Component {
 	}
 
 	setRoomCode = (roomCode) => {
+		this.setErrorMsg("");
 		this.setState({roomCode: roomCode})
 	};
 

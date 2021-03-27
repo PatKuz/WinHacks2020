@@ -75,6 +75,7 @@ class IndexPage extends Component {
 	}
 
 	attemptLogin = (email, password) => {
+		this.setErrorMsg("");
 		this.props.firebase.doSignInWithEmail(email, password).then(() => {
 			navigate("/control-panel");
 		}).catch((err) => {
@@ -84,6 +85,7 @@ class IndexPage extends Component {
 	};
 
 	attemptRegister = (name, email, password) => {
+		this.setErrorMsg("");
 		this.props.firebase.doRegisterWithEmail(email, password).then((userCredential) => {
 			const user = userCredential.user;
 			
@@ -94,6 +96,14 @@ class IndexPage extends Component {
 				this.setErrorMsg("User Creation Failed!");
 			});
 		});
+	};
+	
+	addQuestion = (roomId, question) => {
+		
+	};
+	
+	upvoteQuestion = (roomID, questionID, studentID) => {
+		
 	};
 
 	render() {
@@ -137,7 +147,7 @@ class IndexPage extends Component {
 			return (
 			    <>
 					<SEO title="Room" route="/" />
-					<Room room={room} />
+					<Room room={room} addQuestion={this.addQuestion} upvoteQuestion={this.upvoteQuestion}/>
 				</>
 			);
 	}

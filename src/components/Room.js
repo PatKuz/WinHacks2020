@@ -24,7 +24,7 @@ const StyledFormControl = styled(Form.Control)`
   background-color: #ffffff;
   position: relative;
   text-decoration: none;
-  border: 0.5px solid light-blue;
+  border: 0.5px solid #5458ec;
   width: 400px;
   height: 40px;
   margin-left: 20px;
@@ -37,7 +37,7 @@ const StyledFormControlBody = styled(Form.Control)`
   background-color: #ffffff;
   position: relative;
   text-decoration: none;
-  border: 0.5px solid light-blue;
+  border: 0.5px solid #5458ec;
   width: 400px;
   height: 100px;
   margin-left: 20px;

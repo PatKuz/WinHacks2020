@@ -1,4 +1,3 @@
-  
 import styled, { createGlobalStyle } from "styled-components";
 import BootstrapContainer from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";

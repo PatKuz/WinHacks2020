@@ -66,6 +66,11 @@ class JoinRoom extends React.Component {
               type="text"
               value={roomCode}
               onChange={(e) => this.setState({ roomCode: e.target.value })}
+              onKeyPress={(e) => {
+                if (e.charCode === 13) {
+                  this.props.setRoomCode(roomCode);
+                }
+              }}
             />
           </StyledFormGroup>
         </Form>

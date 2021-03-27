@@ -62,7 +62,13 @@ class Login extends React.Component {
     const { email, password } = this.state;
     return (
       <>
-        <Form>
+        <Form
+          onKeyPress={(e) => {
+            if (e.charCode === 13) {
+              this.props.attemptLogin(email, password);
+            }
+          }}
+        >
           <StyledFormGroup controlId="email">
             Email
             <StyledFormControl
@@ -74,7 +80,7 @@ class Login extends React.Component {
           <StyledFormGroup controlId="password">
             Password
             <StyledFormControl
-              type="text"
+              type="password"
               value={password}
               onChange={(e) => this.setState({ password: e.target.value })}
             />

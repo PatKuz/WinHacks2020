@@ -94,3 +94,46 @@ body {
 .submit--button:hover {
   background-color: #ffffff;
 }
+
+.room--rect {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 50%;
+  height: 100%;
+  color: #ffffff;
+  background-color: #ffffff;
+  z-index: -999;
+}
+
+.room--question {
+  font-family: 'Overpass', sans-serif;
+  font-size: 20px;
+  color: #242424;
+  background-color: #f2f3f4;
+  display: inline-block;
+  padding: 10px 10px;
+  width: 90%;
+  border-radius: 3px;
+  margin-top: 8px;
+  text-align: left;
+  height: 95px;
+}
+
+.question--body {
+  font-size: 15px;
+}
+
+.vote--icon {
+  color: #242424;
+  transition-duration: 0.2s;
+  margin-left: 98%;
+  cursor: pointer;
+}
+
+.vote--icon:hover {
+  color: #22BC22;
+}

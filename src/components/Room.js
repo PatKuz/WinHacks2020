@@ -118,7 +118,7 @@ class Room extends React.Component {
 	}
 
     handleModalShowHide() {
-        this.setState({ showHide: !this.state.showHide })
+        this.setState({ showHide: !this.state.showHide, questionTitle: "", questionBody: "", chips: [] })
     }
 	addChip = value => {
 		const chips = this.state.chips.slice();
@@ -135,6 +135,7 @@ class Room extends React.Component {
 		const { questionTitle, questionBody, chips, studentID } = this.state;
 		
 		this.handleModalShowHide();
+		this.setState({questionTitle: "", questionBody: "", chips: []});
 		this.props.addQuestion(this.props.room.id, uuidv4(), { title: questionTitle, description: questionBody, tags: chips, upvotes: {} }, studentID);
 	};
 	

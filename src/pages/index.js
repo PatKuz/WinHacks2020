@@ -106,9 +106,7 @@ class IndexPage extends Component {
 		
 		room.questions[questionID] = question;
 		
-		this.props.firebase.room(roomID).set(room).then(() => {
-			console.log("question submitted");
-		}).catch((err) => {
+		this.props.firebase.room(roomID).set(room).catch((err) => {
 			console.log(err)
 		});
 	};

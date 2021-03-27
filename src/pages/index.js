@@ -9,7 +9,7 @@ import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 import Room from "../components/Room";
 
-import Background from "../images/home-background.png";
+import Background from "../images/pattern_3.svg";
 
 const StyledCentered = styled(Centered)`
 	background: url(${Background});
@@ -18,38 +18,38 @@ const StyledCentered = styled(Centered)`
 class IndexPage extends React.Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			roomCode: "",
 			rooms: null,
 			errorMsg: "",
 		}
-		
+
 		this._initFirebase = false;
 		this.unsubRooms = null;
 	}
-	
+
     componentDidMount() {
 		if (this.props.firebase && !this._initFirebase) this.loadData();
 	}
-	
+
     componentDidUpdate(prevProps) {
 		if (this.props.firebase && !this._initFirebase) this.loadData();
 	}
-	
+
     componentWillUnmount() {
 		if (typeof this.unsubRooms === "function") this.unsubRooms();
 	}
-	
+
 	loadData = async () => {
 		this._initFirebase = true;
-		
+
 		const rooms = await new Promise((resolve, reject) => {
 			let resolveOnce = (doc) => {
 				resolveOnce = () => null;
 				resolve(doc);
 			};
-			
+
 			this.unsubRooms = this.props.firebase
 				.rooms()
 				.onSnapshot((querySnapshot) => {
@@ -64,15 +64,16 @@ class IndexPage extends React.Component {
 				}, reject);
 		});
 	}
-	
+
 	setRoomCode = (roomCode) => {
-		this.setState({roomCode})
+		this.setState({roomCode: roomCode})
 	};
-	
+
 	setErrorMsg = (errorMsg) => {
-		this.setState({errorMsg});
+		this.setState({errorMsg: errorMsg});
+		this.forceUpdate();
 	}
-	
+
 	attemptLogin = (email, password) => {
 		this.props.firebase.doSignInWithEmail(email, password).then(() => {
 			navigate("/control-panel");
@@ -81,16 +82,16 @@ class IndexPage extends React.Component {
 			this.setErrorMsg("Login Failed!");
 		});
 	};
-	
+
 	render() {
 		const { rooms, roomCode, errorMsg } = this.state;
-		
+
 		const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
-		
+
 		if (room === null && roomCode !== "") {
 			this.setErrorMsg("Room not found!");
 		}
-		
+
 		if (roomCode === "")
 			return (
 			    <>

@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { Component } from "react";
 import styled from 'styled-components'
 import { navigate } from "gatsby";
 
@@ -15,7 +15,7 @@ const StyledCentered = styled(Centered)`
 	background: url(${Background});
 `;
 
-class IndexPage extends React.Component {
+class IndexPage extends Component {
 	constructor(props) {
 		super(props);
 
@@ -83,22 +83,42 @@ class IndexPage extends React.Component {
 		});
 	};
 
+	attemptRegister = (name, email, password) => {
+		this.props.firebase.doRegisterWithEmail(email, password).then((userCredential) => {
+			const user = userCredential.user;
+			
+			this.props.firebase.user(user.uid).set({name: name, email: email, roles: { professor: true }}).then(() => {
+				this.attemptLogin(email, password);
+			}).catch((err) => {
+				console.log(err);
+				this.setErrorMsg("User Creation Failed!");
+			});
+		});
+	};
+
 	render() {
-		const { rooms, roomCode, errorMsg } = this.state;
+		let { rooms, roomCode, errorMsg } = this.state;
 
 		const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
 
-		if (room === null && roomCode !== "") {
-			this.setErrorMsg("Room not found!");
-		}
-
-		if (roomCode === "")
+		if (errorMsg !== "")
 			return (
 			    <>
 					<SEO title="Home" route="/" />
 					<StyledCentered>
 						<Logo size="large"/>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} />
+						<h1> {errorMsg} </h1>
+						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister}/>
+					</StyledCentered>
+				</>
+			);
+		else if (roomCode === "")
+			return (
+			    <>
+					<SEO title="Home" route="/" />
+					<StyledCentered>
+						<Logo size="large"/>
+						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister} />
 					</StyledCentered>
 				</>
 			);
@@ -109,18 +129,7 @@ class IndexPage extends React.Component {
 					<StyledCentered>
 						<Logo size="large"/>
 						<h1> Room not found! </h1>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} />
-					</StyledCentered>
-				</>
-			);
-		else if (errorMsg !== "")
-			return (
-			    <>
-					<SEO title="Home" route="/" />
-					<StyledCentered>
-						<Logo size="large"/>
-						<h1> {this.state.errorMsg} </h1>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} />
+						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} attemptRegister={this.attemptRegister} />
 					</StyledCentered>
 				</>
 			);

@@ -45,6 +45,19 @@ const StyledTitle = styled.h1`
 	-webkit-text-stroke: 3px black;
 `;
 
+const StyledButton = styled(Button)`
+	background-color: #ff6961;
+	display: inline-block;
+	margin-left: 95%;
+	border-radius: 20px;
+	margin-bottom: 20px;
+	text-decoration: none;
+	&:hover:{
+		background-color: #ffffff;
+		color: #ff6961;
+	}
+`;
+
 
 class Room extends React.Component {
 
@@ -59,10 +72,10 @@ class Room extends React.Component {
         this.setState({ showHide: !this.state.showHide })
     }
 
-	
+
 	render() {
 
-		
+
 		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
 			console.log(this.props.room.questions[key]);
 			return (
@@ -72,7 +85,7 @@ class Room extends React.Component {
 				</StyledDivTwo>
 			);
 		});
-		
+
 		return (
 			<BackgroundDiv>
 				<StyledTitle> {this.props.room.roomName} </StyledTitle>
@@ -80,10 +93,10 @@ class Room extends React.Component {
 					<h1> test </h1>
 					<Questions />
 				</StyledDiv>
-				<Button variant="primary" onClick={() => this.handleModalShowHide()}>
-                    Launch demo modal
-                </Button>
-				<Modal show={this.state.showHide}>
+				<StyledButton variant="primary" onClick={() => this.handleModalShowHide()}>
+                    +
+                </StyledButton>
+				<Modal show={this.state.showHide} centered>
                     <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
                     <Modal.Title>Enter Question</Modal.Title>
                     </Modal.Header>

@@ -97,6 +97,20 @@ const StyledButton = styled(Button)`
 	};
 `;
 
+const StyledLeave = styled(Button)`
+	background-color: #ff6961;
+	display: inline-block;
+	margin-left: -85%;
+	padding: 10px 20px;
+	border-radius: 6px;
+	font-size: 20px;
+	text-decoration: none;
+	&:hover {
+		background-color: #ffffff !important;
+		color: #ffffff;
+	};
+`;
+
 
 class Room extends React.Component {
 	constructor(){
@@ -159,6 +173,9 @@ class Room extends React.Component {
 
 		return (
 			<BackgroundDiv>
+				<StyledLeave>
+					Leave Room
+				</StyledLeave>
 				<StyledDiv>
 					<Questions />
 				</StyledDiv>

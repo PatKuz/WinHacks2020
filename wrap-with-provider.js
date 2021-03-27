@@ -41,12 +41,12 @@ const fn = ({ element }) => {
         firebaseAuthNext={(authUser) => {
           if (!authUser) {
             savePathname();
-            navigate("/login");
+            navigate("/");
           }
         }}
         firebaseAuthFallback={() => {
           savePathname();
-          navigate("/login");
+          navigate("/");
         }}
         authorizationFailed={<AuthorizationFailed />}
         {...props}

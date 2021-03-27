@@ -1,8 +1,9 @@
 import * as React from "react"
 import { navigate } from "gatsby";
 import styled from 'styled-components'
+import { compose } from "recompose";
 
-import {withFirebase} from "../api/"
+import {withFirebase, withAuthorization} from "../api/"
 import { Centered } from "../styles/global";
 import Card from "../components/Card";
 import Logo from "../components/Logo";
@@ -15,7 +16,9 @@ const StyledCentered = styled(Centered)`
 	background: url(${Background});
 `;
 
-class IndexPage extends React.Component {
+const isProfessor = (authUser) => !!authUser?.roles?.professor;
+
+class ControlPage extends React.Component {
 	_initFirebase = false;
 	state = {
 		roomCode: "",
@@ -106,4 +109,7 @@ class IndexPage extends React.Component {
 	}
 }
 
-export default withFirebase(IndexPage);
+export default compose(
+  withAuthorization(isProfessor),
+  withFirebase
+)(ControlPage);

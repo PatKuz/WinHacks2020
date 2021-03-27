@@ -122,6 +122,10 @@ class IndexPage extends Component {
 	upvoteQuestion = (roomID, questionID, studentID) => {
 		
 	};
+	
+	exitRoom = () => {
+		this.setRoomCode("");
+	};
 
 	render() {
 		let { rooms, roomCode, errorMsg } = this.state;
@@ -164,7 +168,7 @@ class IndexPage extends Component {
 			return (
 			    <>
 					<SEO title="Room" route="/" />
-					<Room room={room} addQuestion={this.addQuestion} upvoteQuestion={this.upvoteQuestion}/>
+					<Room room={room} addQuestion={this.addQuestion} upvoteQuestion={this.upvoteQuestion} exitRoom={this.exitRoom} />
 				</>
 			);
 	}

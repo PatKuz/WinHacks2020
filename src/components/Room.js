@@ -140,6 +140,7 @@ class Room extends React.Component {
     handleModalShowHide() {
         this.setState({ showHide: !this.state.showHide, questionTitle: "", questionBody: "", chips: [] })
     }
+	
 	addChip = value => {
 		const chips = this.state.chips.slice();
 		chips.push(value);
@@ -173,7 +174,7 @@ class Room extends React.Component {
 
 		return (
 			<BackgroundDiv>
-				<StyledLeave>
+				<StyledLeave onClick={() => this.props.exitRoom()}>
 					Leave Room
 				</StyledLeave>
 				<StyledDiv>

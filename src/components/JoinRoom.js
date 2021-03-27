@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { Centered } from "../styles/global";
 
 const StyledFormGroup = styled(Form.Group)`
   background-color: #ffffff;

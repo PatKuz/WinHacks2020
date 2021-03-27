@@ -3244,7 +3244,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@^4.6.0:
+bootstrap@^4.3.1, bootstrap@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.0.tgz#97b9f29ac98f98dfa43bf7468262d84392552fd7"
   integrity sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==
@@ -10853,7 +10853,7 @@ react-bootstrap-range-slider@^2.0.2:
     classnames "^2.2.6"
     prop-types "^15.7.2"
 
-react-bootstrap@^1.5.2:
+react-bootstrap@^1.0.0, react-bootstrap@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.5.2.tgz#07dabec53d10491a520c49f102170b440fa89008"
   integrity sha512-mGKPY5+lLd7Vtkx2VFivoRkPT4xAHazuFfIhJLTEgHlDfIUSePn7qrmpZe5gXH9zvHV0RsBaQ9cLfXjxnZrOpA==
@@ -10876,6 +10876,14 @@ react-bootstrap@^1.5.2:
     react-transition-group "^4.4.1"
     uncontrollable "^7.2.1"
     warning "^4.0.3"
+
+react-chip-input@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-chip-input/-/react-chip-input-1.1.0.tgz#13a0dceabd031491066b52a2214dc7b67a592253"
+  integrity sha512-/MN3juzviZOoBiPSIO3YTTvHRgLKoNIPSzCUM+Esju9y3R6yp7cfHGe5Y/zP13d01U6533rG0OdROlU57vkaYQ==
+  dependencies:
+    bootstrap "^4.3.1"
+    react-bootstrap "^1.0.0"
 
 react-dev-utils@^11.0.3:
   version "11.0.4"

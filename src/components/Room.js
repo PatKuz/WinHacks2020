@@ -6,6 +6,32 @@ import Background from "../images/home-background.png";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Button,Modal } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form'
+import ReactChipInput from "react-chip-input";
+
+const StyledFormGroup = styled(Form.Group)`
+
+  background-color: #ffffff;
+  border-radius: 2px;
+  padding: 20px 20px;
+  font-family: 'Overpass', sans-serif;
+  font-size: 20px;
+  color: #242424;
+  display: inline-block;
+`;
+
+const StyledFormControl = styled(Form.Control)`
+  background-color: #ffffff;
+  position: relative;
+  text-decoration: none;
+  border: 0.5px solid light-blue;
+  width: 400px;
+  height: 75px;
+  margin-left: 20px;
+  font-family: 'Overpass', sans-serif;
+  font-size: 20px;
+  display: inline-block;
+`;
 
 const StyledDiv = styled.div`
 	background-color: #ffffff;
@@ -61,17 +87,33 @@ class Room extends React.Component {
 	constructor(){
         super();
         this.state = {
-            showHide : false
+            showHide : false,
+			questionTitle : "",
+			questionBody : "",
+			chips: [] //The input tags
         }
     }
 
     handleModalShowHide() {
         this.setState({ showHide: !this.state.showHide })
     }
+	addChip = value => {
+		console.log("This runs")
+		const chips = this.state.chips.slice();
+		chips.push(value);
+		this.setState({ chips });
+	  };
+	  removeChip = index => {
+		const chips = this.state.chips.slice();
+		chips.splice(index, 1);
+		this.setState({ chips });
+	  };
 
 
 	render() {
 		const { showHide } = this.state;
+		const {questionTitle} = this.state;
+		const {questionBody} = this.state;
 
 		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
 			console.log(this.props.room.questions[key]);
@@ -97,7 +139,35 @@ class Room extends React.Component {
                     <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
                     <Modal.Title>Enter Question</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>FORM</Modal.Body>
+                    <Modal.Body>
+						<Form>
+							<StyledFormGroup controlId="question">
+								<Form.Label>Question Title:</Form.Label>
+								<StyledFormControl
+								type="text"
+								value={questionTitle}
+								onChange={(e) =>
+									this.setState({ questionTitle: e.target.value })
+								}
+								/>
+								Question body:
+								<StyledFormControl
+								type="text"
+								value={questionBody}
+								onChange={(e) =>
+									this.setState({questionBody: e.target.value })
+								}
+								/>
+								
+							</StyledFormGroup>
+						</Form>
+						<ReactChipInput
+									classes="class1 class2"
+									chips={this.state.chips}
+									onSubmit={value => this.addChip(value)}
+									onRemove={index => this.removeChip(index)}
+								/>	
+					</Modal.Body>
                     <Modal.Footer>
                     <Button onClick={() => this.handleModalShowHide()}>
                         Close

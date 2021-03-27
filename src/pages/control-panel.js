@@ -84,7 +84,6 @@ class ControlPage extends React.Component {
 					<SEO title="Home" route="/" />
 					<StyledCentered>
 						<Logo size="large"/>
-						<TeacherRoom />
 					</StyledCentered>
 				</>
 			);
@@ -95,7 +94,6 @@ class ControlPage extends React.Component {
 					<StyledCentered>
 						<Logo size="large"/>
 						<h1> Room not found! </h1>
-						<TeacherRoom />
 					</StyledCentered>
 				</>
 				);

@@ -60,7 +60,6 @@ const StyledButton = styled(Button)`
 
 
 class Room extends React.Component {
-
 	constructor(){
         super();
         this.state = {
@@ -74,7 +73,7 @@ class Room extends React.Component {
 
 
 	render() {
-
+		const { showHide } = this.state;
 
 		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
 			console.log(this.props.room.questions[key]);
@@ -96,7 +95,7 @@ class Room extends React.Component {
 				<StyledButton variant="primary" onClick={() => this.handleModalShowHide()}>
                     +
                 </StyledButton>
-				<Modal show={this.state.showHide} centered>
+				<Modal show={showHide} onHide={() => this.handleModalShowHide()} centered>
                     <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
                     <Modal.Title>Enter Question</Modal.Title>
                     </Modal.Header>

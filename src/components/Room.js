@@ -26,7 +26,20 @@ const StyledFormControl = styled(Form.Control)`
   text-decoration: none;
   border: 0.5px solid light-blue;
   width: 400px;
-  height: 75px;
+  height: 40px;
+  margin-left: 20px;
+  font-family: 'Overpass', sans-serif;
+  font-size: 20px;
+  display: inline-block;
+`;
+
+const StyledFormControlBody = styled(Form.Control)`
+  background-color: #ffffff;
+  position: relative;
+  text-decoration: none;
+  border: 0.5px solid light-blue;
+  width: 400px;
+  height: 100px;
   margin-left: 20px;
   font-family: 'Overpass', sans-serif;
   font-size: 20px;
@@ -140,17 +153,18 @@ class Room extends React.Component {
                     <Modal.Body>
 						<Form>
 							<StyledFormGroup controlId="question">
-								<Form.Label>Question Title:</Form.Label>
+								<Form.Label></Form.Label>
 								<StyledFormControl
 								type="text"
+								placeholder="Question Title"
 								value={questionTitle}
 								onChange={(e) =>
 									this.setState({ questionTitle: e.target.value })
 								}
-								/>
-								Question body:
-								<StyledFormControl
+								/> 
+								<StyledFormControlBody
 								type="text"
+								placeholder = "Question Body"
 								value={questionBody}
 								onChange={(e) =>
 									this.setState({questionBody: e.target.value })

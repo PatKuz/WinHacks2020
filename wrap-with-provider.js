@@ -12,8 +12,6 @@ import {
 } from "./src/api/Session";
 
 import Firebase from "./src/components/Firebase";
-import Header from "./src/components/Header";
-import Footer from "./src/components/Footer";
 import GlobalStyle, { Centered } from "./src/styles/global";
 
 import { pathPrefix } from "./gatsby-config";
@@ -61,9 +59,7 @@ const fn = ({ element }) => {
   const LayoutBase = withTheme(({ theme, children }) => (
     <Fragment>
       <GlobalStyle theme={theme} />
-      <Header />
       {children}
-      <Footer />
     </Fragment>
   ));
   LayoutBase.displayName = "LayoutBase";

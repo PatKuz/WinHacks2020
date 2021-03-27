@@ -66,11 +66,12 @@ class IndexPage extends React.Component {
 	}
 	
 	setRoomCode = (roomCode) => {
-		this.setState({roomCode})
+		this.setState({roomCode: roomCode})
 	};
 	
 	setErrorMsg = (errorMsg) => {
-		this.setState({errorMsg});
+		this.setState({errorMsg: errorMsg});
+		this.forceUpdate();
 	}
 	
 	attemptLogin = (email, password) => {

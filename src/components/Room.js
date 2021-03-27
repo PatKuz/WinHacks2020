@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from 'styled-components'
-import { v5 as uuidv5 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import Container from 'react-bootstrap/Container'
 import Background from "../images/home-background.png";
@@ -115,7 +115,7 @@ class Room extends React.Component {
 	componentDidMount() {
 		const { studentID } = this.state;
 		if (studentID === "") {
-			this.setState({studentID: uuidv5});
+			this.setState({studentID: uuidv4()});
 		}
 	}
 
@@ -123,7 +123,6 @@ class Room extends React.Component {
         this.setState({ showHide: !this.state.showHide })
     }
 	addChip = value => {
-		console.log("This runs")
 		const chips = this.state.chips.slice();
 		chips.push(value);
 		this.setState({ chips });
@@ -138,16 +137,15 @@ class Room extends React.Component {
 		const { questionTitle, questionBody, chips, studentID } = this.state;
 		
 		this.handleModalShowHide();
-		this.props.addQuestion(this.props.room.id, {title: questionTitle, body: questionBody, tags: chips }, studentID)
+		this.props.addQuestion(this.props.room.id, {title: questionTitle, body: questionBody, tags: chips }, studentID);
 	};
 	
 	render() {
 		const { showHide, questionTitle, questionBody, chips, studentID } = this.state;
 
 		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
-			console.log(this.props.room.questions[key]);
 			return (
-				<StyledDivTwo>
+				<StyledDivTwo key={key}>
 					<h1> {this.props.room.questions[key].title} </h1>
 					<p> {this.props.room.questions[key].description} </p>
 				</StyledDivTwo>
@@ -176,7 +174,9 @@ class Room extends React.Component {
 								onChange={(e) =>
 									this.setState({ questionTitle: e.target.value })
 								}
-								/> 
+								/>
+							</StyledFormGroup>
+							<StyledFormGroup controlId="question">
 								<StyledFormControlBody
 								as="textarea"
 								placeholder = "Question Body"

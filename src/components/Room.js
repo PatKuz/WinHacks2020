@@ -5,6 +5,9 @@ import Container from 'react-bootstrap/Container'
 import Background from "../images/home-background.png";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+// import Button from 'react-bootstrap/Button'
+import { xor, xorBy } from "lodash-es";
+import { Button,Modal } from 'react-bootstrap'
 
 const StyledDiv = styled.div`
 	background-color: #ffffff;
@@ -42,8 +45,24 @@ const StyledTitle = styled.h1`
 	-webkit-text-stroke: 3px black;
 `;
 
+
 class Room extends React.Component {
+
+	constructor(){
+        super();
+        this.state = {
+            showHide : false
+        }
+    }
+
+    handleModalShowHide() {
+        this.setState({ showHide: !this.state.showHide })
+    }
+
+	
 	render() {
+
+		
 		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
 			console.log(this.props.room.questions[key]);
 			return (
@@ -61,6 +80,23 @@ class Room extends React.Component {
 					<h1> test </h1>
 					<Questions />
 				</StyledDiv>
+				<Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                    Launch demo modal
+                </Button>
+				<Modal show={this.state.showHide}>
+                    <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
+                    <Modal.Title>Enter Question</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>FORM</Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                        Post Question
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
 			</BackgroundDiv>
 		);
 	}

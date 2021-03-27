@@ -41,8 +41,9 @@ const StyledFormControlBody = styled(Form.Control)`
   width: 400px;
   height: 100px;
   margin-left: 20px;
+  margin-top: 20px;
   font-family: 'Overpass', sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   display: inline-block;
 `;
 

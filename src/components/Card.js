@@ -1,9 +1,9 @@
-import * as React from "react"
-import styled from 'styled-components'
+import * as React from "react";
+import styled from "styled-components";
 
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Button from 'react-bootstrap/Button'
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
 import Login from "../components/Login";
 import Register from "../components/Register";
@@ -15,7 +15,7 @@ const StyledContainer = styled(Container)`
   margin-right: 25%;
   border-radius: 5px;
   padding: 14px 16px;
-  font-family: 'Overpass', sans-serif;
+  font-family: "Overpass", sans-serif;
   font-size: 15px;
   color: #242424;
 `;
@@ -36,55 +36,56 @@ const StyledButton = styled(Button)`
     background-color: #f2f3f4;
     color: #242424;
     border: 2px solid #242424;
-  };
+  }
 `;
-
-
 
 class Card extends React.Component {
   state = {
-	render: "student",
-  }
+    render: "student",
+  };
 
   setRender = (render) => {
-	if (render === "student" || render === "teacher" || render === "register")
-		this.setState({render});
-	else
-		this.setState({render: "student"});
-  }
+    if (render === "student" || render === "teacher" || render === "register")
+      this.setState({ render });
+    else this.setState({ render: "student" });
+  };
 
   render() {
-	const { render } = this.state;
+    const { render } = this.state;
 
-	const RenderComponent = () => {
-		if (render === "student")
-			return (
-				<JoinRoom setRoomCode={this.props.setRoomCode}/>
-			);
-		else if (render === "register") {
-			return (
-				<Register attemptRegister={this.props.attemptRegister} />
-			);
-		}
-		else
-			return (
-				<Login attemptLogin={this.props.attemptLogin} setRender={this.setRender}/>
-			);
-	}
+    const RenderComponent = () => {
+      if (render === "student")
+        return <JoinRoom setRoomCode={this.props.setRoomCode} />;
+      else if (render === "register") {
+        return <Register attemptRegister={this.props.attemptRegister} />;
+      } else
+        return (
+          <Login
+            attemptLogin={this.props.attemptLogin}
+            setRender={this.setRender}
+          />
+        );
+    };
 
-	return (
-		<StyledContainer>
-			<Row>
-				<StyledButton onClick={() => this.setRender("student")}> Student </StyledButton>
-				<StyledButton onClick={() => this.setRender("teacher")}> Teacher </StyledButton>
-			</Row>
-			<hr />
-			<Row>
-				<RenderComponent />
-			</Row>
-		</StyledContainer>
-	);
+    return (
+      <StyledContainer>
+        <Row>
+          <StyledButton onClick={() => this.setRender("student")}>
+            {" "}
+            Student{" "}
+          </StyledButton>
+          <StyledButton onClick={() => this.setRender("teacher")}>
+            {" "}
+            Teacher{" "}
+          </StyledButton>
+        </Row>
+        <hr />
+        <Row>
+          <RenderComponent />
+        </Row>
+      </StyledContainer>
+    );
   }
 }
 
-export default Card
+export default Card;

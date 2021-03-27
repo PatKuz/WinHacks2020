@@ -245,6 +245,9 @@ class Room extends React.Component {
       Object.keys(this.props.room.questions).map((key) => {
         const question = this.props.room.questions[key];
 
+        let amount = 0;
+        Object.keys(question.upvotes).map((key) => amount++);
+
         return (
           <StyledDivTwo key={key}>
             <div> {question.title} </div>
@@ -266,7 +269,7 @@ class Room extends React.Component {
                   }
                   onClick={() => this.dealWithUpvote(question, key)}
                 >
-                  {question.upvotes.length || 0} Votes
+                  {amount} Votes
                 </StyledVote>
               </StyledParentVote>
             </StyledQuestion>

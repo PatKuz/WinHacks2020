@@ -99,9 +99,18 @@ class IndexPage extends Component {
 		});
 	};
 	
-	addQuestion = (roomId, question, studentID) => {
-		console.log(roomId, question, studentID);
+	addQuestion = async (roomID, questionID, question, studentID) => {
+		const {rooms} = this.state;
 		
+		const room = rooms.find((r) => r.id === roomID);
+		
+		room.questions[questionID] = question;
+		
+		this.props.firebase.room(roomID).set(room).then(() => {
+			console.log("question submitted");
+		}).catch((err) => {
+			console.log(err)
+		});
 	};
 	
 	upvoteQuestion = (roomID, questionID, studentID) => {

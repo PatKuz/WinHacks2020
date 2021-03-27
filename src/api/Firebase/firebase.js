@@ -79,6 +79,7 @@ class Firebase {
   users = () => this.firestore.collection("users")
   
   rooms = () => this.firestore.collection("rooms")
+  room = (uid) => this.firestore.doc(`rooms/${uid}`)
 }
 
 let firebase;

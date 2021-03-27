@@ -137,7 +137,7 @@ class Room extends React.Component {
 		const { questionTitle, questionBody, chips, studentID } = this.state;
 		
 		this.handleModalShowHide();
-		this.props.addQuestion(this.props.room.id, {title: questionTitle, body: questionBody, tags: chips }, studentID);
+		this.props.addQuestion(this.props.room.id, uuidv4(), { title: questionTitle, description: questionBody, tags: chips, upvotes: {} }, studentID);
 	};
 	
 	render() {

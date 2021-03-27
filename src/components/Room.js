@@ -111,6 +111,7 @@ class Room extends React.Component {
     }
 	
 	componentDidMount() {
+		const { studentID } = this.state;
 		if (studentID === "") {
 			this.setState({studentID: uuidv5});
 		}

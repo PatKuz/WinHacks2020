@@ -1,16 +1,18 @@
 class Firebase {
   constructor(app, config) {
     if (!config) throw new Error("No Firebase config given!");
-	
+
     app.initializeApp(config);
     this.auth = app.auth();
     this.firestore = app.firestore();
   }
 
   // *** Auth API ***
-  doSignInWithEmail = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
-  
-  doRegisterWithEmail = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
+  doSignInWithEmail = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
+
+  doRegisterWithEmail = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
 
   doSignOut = () =>
     this.auth.signOut().then(() => localStorage.removeItem("authUser"));
@@ -75,11 +77,11 @@ class Firebase {
     });
 
   // *** User API ***
-  user = (uid) => this.firestore.doc(`users/${uid}`)
-  users = () => this.firestore.collection("users")
-  
-  rooms = () => this.firestore.collection("rooms")
-  room = (uid) => this.firestore.doc(`rooms/${uid}`)
+  user = (uid) => this.firestore.doc(`users/${uid}`);
+  users = () => this.firestore.collection("users");
+
+  rooms = () => this.firestore.collection("rooms");
+  room = (uid) => this.firestore.doc(`rooms/${uid}`);
 }
 
 let firebase;

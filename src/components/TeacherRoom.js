@@ -77,20 +77,9 @@ class TeacherRoom extends React.Component {
 		const { showHide } = this.state;
         const percentage = 66;
 
-		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
-			console.log(this.props.room.questions[key]);
-			return (
-				<StyledDivTwo>
-					<h1> {this.props.room.questions[key].title} </h1>
-					<p> {this.props.room.questions[key].description} </p>
-				</StyledDivTwo>
-			);
-		});
-
 		return (
 			<BackgroundDiv>
 				<StyledDiv>
-					<Questions />
 				</StyledDiv>
                 <Button onClick={() => this.handleModalShowHide()}>Show stats</Button>
                 <Modal show={showHide} onHide={() => this.handleModalShowHide()} centered>

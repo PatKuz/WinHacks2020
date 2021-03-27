@@ -5,7 +5,7 @@ import { compose } from "recompose";
 
 import {withFirebase, withAuthorization} from "../api/"
 import { Centered } from "../styles/global";
-import Card from "../components/Card";
+import TeacherRoom from "../components/TeacherRoom";
 import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 import Room from "../components/Room";
@@ -84,7 +84,7 @@ class ControlPage extends React.Component {
 					<SEO title="Home" route="/" />
 					<StyledCentered>
 						<Logo size="large"/>
-						<Card setRoomCode={this.setRoomCode} />
+						<TeacherRoom />
 					</StyledCentered>
 				</>
 			);
@@ -95,7 +95,7 @@ class ControlPage extends React.Component {
 					<StyledCentered>
 						<Logo size="large"/>
 						<h1> Room not found! </h1>
-						<Card setRoomCode={this.setRoomCode} />
+						<TeacherRoom />
 					</StyledCentered>
 				</>
 				);
@@ -103,7 +103,7 @@ class ControlPage extends React.Component {
 			return (
 			    <>
 					<SEO title="Room" route="/" />
-					<Room room={room} />
+					<TeacherRoom room={room}/>
 				</>
 			);
 	}

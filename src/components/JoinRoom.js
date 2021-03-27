@@ -29,10 +29,10 @@ const StyledFormControl = styled(Form.Control)`
 `;
 
 const StyledButton = styled(Button)`
-  margin-left: 90%;
+  margin-left: 88%;
   border: none;
   color: #242424;
-  padding: 15px 32px;
+  padding: 15px 25px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -42,9 +42,11 @@ const StyledButton = styled(Button)`
   cursor: pointer;
   font-size: 15px;
   border-radius: 3px;
+  border: 2px solid #f2f3f4;
   &:hover {
-	background-color: #ffffff;
-	color: #242424;
+  	background-color: #f2f3f4;
+  	color: #242424;
+    border: 2px solid #242424;
   };
 `;
 
@@ -76,7 +78,7 @@ class JoinRoom extends React.Component {
                 this.props.setRoomCode(roomCode)
               }
             >
-              Save
+              Join Room
             </StyledButton>
 		</>
 	  );

@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from 'styled-components'
-
+import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { Centered } from "../styles/global";
@@ -29,23 +29,28 @@ const StyledFormControl = styled(Form.Control)`
 `;
 
 const StyledButton = styled(Button)`
-  margin-left: 90%;
-  border: none;
   color: #242424;
-  padding: 15px 32px;
+  padding: 15px 25px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  position: relative;
   transition-duration: 0.2s;
   background-color: #f2f3f4;
   cursor: pointer;
   font-size: 15px;
   border-radius: 3px;
+  border: 2px solid #f2f3f4;
+  position: flex;
+  margin-right: 4px;
+  display: inline-block;
   &:hover {
-	background-color: #ffffff;
-	color: #242424;
+    background-color: #f2f3f4;
+    color: #242424;
+    border: 2px solid #242424;
   };
+`;
+
+const StyledDiv = styled.div`
+  margin-left: 81%;
 `;
 
 class Login extends React.Component {
@@ -53,8 +58,8 @@ class Login extends React.Component {
 		email: "",
 		password: "",
 	}
-	
-	
+
+
 	render() {
 	  const {email, password} = this.state;
 	  return (
@@ -81,14 +86,15 @@ class Login extends React.Component {
                 />
               </StyledFormGroup>
             </Form>
-			
-            <StyledButton
-              onClick={() =>
-                this.props.attemptLogin(email, password)
-              }
-            >
-              Login
-            </StyledButton>
+            <StyledDiv>
+              <StyledButton
+                onClick={() =>
+                  this.props.attemptLogin(email, password)
+                }
+              >
+                Login
+              </StyledButton>
+
 			<StyledButton
               onClick={() =>
                 this.props.setRender("register")
@@ -96,6 +102,7 @@ class Login extends React.Component {
             >
               Register
             </StyledButton>
+          </StyledDiv>
 		</>
 	  );
 	}

@@ -27,7 +27,7 @@ const StyledContainer = styled(Container)`
 const StyledButton = styled(Button)`
   border: none;
   color: #242424;
-  padding: 15px 32px;
+  padding: 15px 25px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -35,9 +35,11 @@ const StyledButton = styled(Button)`
   background-color: #ffffff;
   cursor: pointer;
   font-size: 15px;
+  border: 2px solid #ffffff;
   &:hover {
-	background-color: #f2f3f4;
+    background-color: #f2f3f4;
     color: #242424;
+    border: 2px solid #242424;
   };
 `;
 
@@ -47,17 +49,17 @@ class Card extends React.Component {
   state = {
 	render: "student",
   }
-  
+
   setRender = (render) => {
 	if (render === "student" || render === "teacher" || render === "register")
 		this.setState({render});
 	else
 		this.setState({render: "student"});
   }
-	
+
   render() {
 	const { render } = this.state;
-	
+
 	const RenderComponent = () => {
 		if (render === "student")
 			return (
@@ -73,7 +75,7 @@ class Card extends React.Component {
 				<Login attemptLogin={this.props.attemptLogin} setRender={this.setRender}/>
 			);
 	}
-	  
+
 	return (
 		<StyledContainer>
 			<Row>

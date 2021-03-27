@@ -5,8 +5,6 @@ import Container from 'react-bootstrap/Container'
 import Background from "../images/home-background.png";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-// import Button from 'react-bootstrap/Button'
-import { xor, xorBy } from "lodash-es";
 import { Button,Modal } from 'react-bootstrap'
 
 const StyledDiv = styled.div`
@@ -52,15 +50,14 @@ const StyledButton = styled(Button)`
 	border-radius: 20px;
 	margin-bottom: 20px;
 	text-decoration: none;
-	&:hover:{
-		background-color: #ffffff;
-		color: #ff6961;
-	}
+	&:hover {
+		background-color: #ffffff !important;
+		color: #ffffff;
+	};
 `;
 
 
 class Room extends React.Component {
-
 	constructor(){
         super();
         this.state = {
@@ -74,7 +71,7 @@ class Room extends React.Component {
 
 
 	render() {
-
+		const { showHide } = this.state;
 
 		const Questions = () => Object.keys(this.props.room.questions).map((key) => {
 			console.log(this.props.room.questions[key]);
@@ -88,24 +85,22 @@ class Room extends React.Component {
 
 		return (
 			<BackgroundDiv>
-				<StyledTitle> {this.props.room.roomName} </StyledTitle>
 				<StyledDiv>
-					<h1> test </h1>
 					<Questions />
 				</StyledDiv>
-				<StyledButton variant="primary" onClick={() => this.handleModalShowHide()}>
+				<StyledButton onClick={() => this.handleModalShowHide()}>
                     +
                 </StyledButton>
-				<Modal show={this.state.showHide} centered>
+				<Modal show={showHide} onHide={() => this.handleModalShowHide()} centered>
                     <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
                     <Modal.Title>Enter Question</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>FORM</Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
+                    <Button onClick={() => this.handleModalShowHide()}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                    <Button onClick={() => this.handleModalShowHide()}>
                         Post Question
                     </Button>
                     </Modal.Footer>

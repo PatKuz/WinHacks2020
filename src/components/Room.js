@@ -85,9 +85,7 @@ class Room extends React.Component {
 
 		return (
 			<BackgroundDiv>
-				<StyledTitle> {this.props.room.roomName} </StyledTitle>
 				<StyledDiv>
-					<h1> test </h1>
 					<Questions />
 				</StyledDiv>
 				<StyledButton onClick={() => this.handleModalShowHide()}>

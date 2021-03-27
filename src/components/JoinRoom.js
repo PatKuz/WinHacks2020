@@ -52,7 +52,6 @@ class JoinRoom extends React.Component {
 		roomCode: "",
 	}
 
-
 	render() {
 	  const {roomCode} = this.state;
 

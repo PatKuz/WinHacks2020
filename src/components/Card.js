@@ -37,6 +37,7 @@ const StyledButton = styled(Button)`
   font-size: 15px;
   &:hover {
 	background-color: #f2f3f4;
+    color: #242424;
   };
 `;
 

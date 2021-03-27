@@ -164,7 +164,7 @@ class Room extends React.Component {
 						<Form>
 							<StyledFormGroup controlId="question">
 								<StyledFormControl
-								type="text"
+								as="textarea"
 								placeholder="Question Title"
 								value={questionTitle}
 								onChange={(e) =>

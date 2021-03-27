@@ -46,21 +46,32 @@ const StyledFormControlBody = styled(Form.Control)`
 
 const StyledDiv = styled.div`
   background-color: #ffffff;
-  border-radius: 10px !important;
-  border: 3px solid #292929;
-  box-shadow: #636363 5px 1px 10px 5px;
-  width: 70%;
-  height: 90%;
+  border-left: 3px solid #292929;
+  border-right: 3px solid #292929;
+  width: 50%;
+  height: 100%;
+  position: absolute;
   justify-content: center;
   align-items: center;
+  overflow: scroll;
 `;
 
 const StyledDivTwo = styled.div`
-  background-color: #ffffff;
-  border-radius: 10px !important;
-  border: 3px solid #292929;
-  box-shadow: #636363 5px 1px 10px 5px;
-  width: 75%;
+  font-family: "Overpass", sans-serif;
+  font-size: 20px;
+  color: #242424;
+  background-color: #e2e2e2;
+  display: inline-block;
+  padding: 10px 10px;
+  width: 90%;
+  border-radius: 10px;
+  margin-top: 8px;
+  text-align: left;
+  height: 105px;
+  border: 2px solid #242424;
+  left: 0;
+  right: 0;
+  margin-left: 5%;
 `;
 
 const BackgroundDiv = styled.div`
@@ -77,27 +88,39 @@ const StyledButton = styled(Button)`
   background-color: #ff6961;
   display: inline-block;
   margin-left: 95%;
+  margin-top: -43%;
   border-radius: 20px;
   margin-bottom: 20px;
   text-decoration: none;
+  position: fixed;
+  border: 2px solid #ffffff;
   &:hover {
     background-color: #ffffff !important;
-    color: #ffffff;
+    color: #ff6961;
+    border: 2px solid #ff6961;
   }
 `;
 
 const StyledLeave = styled(Button)`
   background-color: #ff6961;
   display: inline-block;
-  margin-left: -85%;
+  margin-left: -90%;
+  margin-top: -43%;
   padding: 10px 20px;
   border-radius: 6px;
-  font-size: 20px;
+  font-size: 15px;
   text-decoration: none;
+  border: 2px solid #ffffff;
+  position: fixed;
   &:hover {
     background-color: #ffffff !important;
-    color: #ffffff;
+    color: #ff6961;
+    border: 2px solid #ff6961;
   }
+`;
+
+const StyledQuestion = styled.div`
+  font-size: 15px;
 `;
 
 class Room extends React.Component {
@@ -170,8 +193,12 @@ class Room extends React.Component {
       Object.keys(this.props.room.questions).map((key) => {
         return (
           <StyledDivTwo key={key}>
-            <h1> {this.props.room.questions[key].title} </h1>
-            <p> {this.props.room.questions[key].description} </p>
+            <div> {this.props.room.questions[key].title} </div>
+            <hr />
+            <StyledQuestion>
+              {" "}
+              {this.props.room.questions[key].description}{" "}
+            </StyledQuestion>
           </StyledDivTwo>
         );
       });

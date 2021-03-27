@@ -25,7 +25,8 @@ const StyledFormControl = styled(Form.Control)`
   background-color: #ffffff;
   position: relative;
   text-decoration: none;
-  border: 0.5px solid #5458ec;
+  border: 2px solid #5458ec;
+  border-radius: 8px;
   width: 400px;
   height: 40px;
   margin-left: 20px;
@@ -38,7 +39,8 @@ const StyledFormControlBody = styled(Form.Control)`
   background-color: #ffffff;
   position: relative;
   text-decoration: none;
-  border: 0.5px solid #5458ec;
+  border: 2px solid #5458ec;
+  border-radius: 8px;
   width: 400px;
   height: 100px;
   margin-left: 20px;
@@ -168,7 +170,7 @@ class Room extends React.Component {
 						<Form>
 							<StyledFormGroup controlId="question">
 								<StyledFormControl
-								type="text"
+								as="textarea"
 								placeholder="Question Title"
 								value={questionTitle}
 								onChange={(e) =>

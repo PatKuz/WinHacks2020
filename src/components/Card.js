@@ -3,15 +3,11 @@ import styled from 'styled-components'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 
 import Login from "../components/Login";
 import Register from "../components/Register";
 import JoinRoom from "../components/JoinRoom";
-
-import { Centered } from "../styles/global";
 
 const StyledContainer = styled(Container)`
   background-color: #ffffff;

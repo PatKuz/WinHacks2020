@@ -43,6 +43,11 @@ class IndexPage extends Component {
 
 	loadData = async () => {
 		this._initFirebase = true;
+		
+		let storedRoomCode = localStorage.getItem("roomCode");
+		
+		if (storedRoomCode !== null && storedRoomCode !== undefined)
+			this.setState({ roomCode: storedRoomCode })
 
 		const rooms = await new Promise((resolve, reject) => {
 			let resolveOnce = (doc) => {
@@ -67,6 +72,9 @@ class IndexPage extends Component {
 
 	setRoomCode = (roomCode) => {
 		this.setErrorMsg("");
+		
+		localStorage.setItem("roomCode", roomCode);
+		
 		this.setState({roomCode: roomCode})
 	};
 

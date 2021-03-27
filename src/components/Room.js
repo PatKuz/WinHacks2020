@@ -112,8 +112,14 @@ class Room extends React.Component {
 	
 	componentDidMount() {
 		const { studentID } = this.state;
-		if (studentID === "") {
-			this.setState({studentID: uuidv4()});
+		
+		let storedStudentID = localStorage.getItem("studentID");
+		if (storedStudentID !== null && storedStudentID !== undefined) {
+			this.setState({ studentID: storedStudentID })
+		} else if (studentID === "") {
+			const uid = uuidv4()
+			this.setState({studentID: uid});
+			localStorage.setItem("studentID", uid);
 		}
 	}
 

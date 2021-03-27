@@ -91,7 +91,10 @@ class IndexPage extends React.Component {
 				);
 		else
 			return (
-				<Room room={room} />
+			    <>
+					<SEO title="Room" route="/" />
+					<Room room={room} />
+				</>
 			);
 	}
 }

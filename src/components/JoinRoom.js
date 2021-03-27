@@ -25,6 +25,7 @@ const StyledFormControl = styled(Form.Control)`
   margin-left: 20px;
   font-family: 'Overpass', sans-serif;
   font-size: 20px;
+  display: inline-block;
 `;
 
 const StyledButton = styled(Button)`
@@ -35,6 +36,7 @@ const StyledButton = styled(Button)`
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  position: relative;
   transition-duration: 0.2s;
   background-color: #f2f3f4;
   cursor: pointer;
@@ -49,16 +51,16 @@ class JoinRoom extends React.Component {
 	state = {
 		roomCode: "",
 	}
-	
-	
+
+
 	render() {
 	  const {roomCode} = this.state;
-	  
+
 	  return (
 		<>
             <Form>
               <StyledFormGroup controlId="roomCode">
-			    <p>Class Code:</p>
+			    Class Code:
 			    <StyledFormControl
                   type="text"
                   value={roomCode}
@@ -68,7 +70,7 @@ class JoinRoom extends React.Component {
                 />
               </StyledFormGroup>
             </Form>
-			
+
             <StyledButton
               onClick={() =>
                 this.props.setRoomCode(roomCode)

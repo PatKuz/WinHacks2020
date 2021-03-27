@@ -16,12 +16,18 @@ const StyledCentered = styled(Centered)`
 `;
 
 class IndexPage extends React.Component {
-	_initFirebase = false;
-	state = {
-		roomCode: "",
-		rooms: null,
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			roomCode: "",
+			rooms: null,
+			errorMsg: "",
+		}
+		
+		this._initFirebase = false;
+		this.unsubRooms = null;
 	}
-	unsubRooms = null;
 	
     componentDidMount() {
 		if (this.props.firebase && !this._initFirebase) this.loadData();
@@ -63,17 +69,27 @@ class IndexPage extends React.Component {
 		this.setState({roomCode})
 	};
 	
+	setErrorMsg = (errorMsg) => {
+		this.setState({errorMsg});
+	}
+	
 	attemptLogin = (email, password) => {
 		this.props.firebase.doSignInWithEmail(email, password).then(() => {
 			navigate("/control-panel");
-		}).catch((err) => console.error(err));
+		}).catch((err) => {
+			console.log(err);
+			this.setErrorMsg("Login Failed!");
+		});
 	};
 	
 	render() {
-		const { rooms, roomCode } = this.state;
-		
+		const { rooms, roomCode, errorMsg } = this.state;
 		
 		const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
+		
+		if (room === null && roomCode !== "") {
+			this.setErrorMsg("Room not found!");
+		}
 		
 		if (roomCode === "")
 			return (
@@ -85,8 +101,8 @@ class IndexPage extends React.Component {
 					</StyledCentered>
 				</>
 			);
-		else if (room === undefined || room === null)
-				return (
+		else if (room === null || room === undefined)
+			return (
 			    <>
 					<SEO title="Home" route="/" />
 					<StyledCentered>
@@ -95,7 +111,18 @@ class IndexPage extends React.Component {
 						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} />
 					</StyledCentered>
 				</>
-				);
+			);
+		else if (errorMsg !== "")
+			return (
+			    <>
+					<SEO title="Home" route="/" />
+					<StyledCentered>
+						<Logo size="large"/>
+						<h1> {this.state.errorMsg} </h1>
+						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} />
+					</StyledCentered>
+				</>
+			);
 		else
 			return (
 			    <>

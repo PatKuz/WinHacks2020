@@ -8,7 +8,9 @@ class Firebase {
   }
 
   // *** Auth API ***
-  doSignInWithToken = (token) => this.auth.signInWithCustomToken(token);
+  doSignInWithEmail = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
+  
+  doRegisterWithEmail = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
 
   doSignOut = () =>
     this.auth.signOut().then(() => localStorage.removeItem("authUser"));

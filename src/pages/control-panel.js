@@ -1,6 +1,6 @@
 import * as React from "react"
-import styled from 'styled-components'
 import { navigate } from "gatsby";
+import styled from 'styled-components'
 
 import {withFirebase} from "../api/"
 import { Centered } from "../styles/global";
@@ -63,8 +63,8 @@ class IndexPage extends React.Component {
 		this.setState({roomCode})
 	};
 	
-	attemptLogin = (email, password) => {
-		this.props.firebase.doSignInWithEmail(email, password).then(() => {
+	attemptLogin = (login) => {
+		this.props.firebase.doSignInWithEmail(login.email, login.password).then(() => {
 			navigate("/control-panel");
 		}).catch((err) => console.error(err));
 	};
@@ -81,7 +81,7 @@ class IndexPage extends React.Component {
 					<SEO title="Home" route="/" />
 					<StyledCentered>
 						<Logo size="large"/>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} />
+						<Card setRoomCode={this.setRoomCode} />
 					</StyledCentered>
 				</>
 			);
@@ -92,7 +92,7 @@ class IndexPage extends React.Component {
 					<StyledCentered>
 						<Logo size="large"/>
 						<h1> Room not found! </h1>
-						<Card setRoomCode={this.setRoomCode} attemptLogin={this.attemptLogin} />
+						<Card setRoomCode={this.setRoomCode} />
 					</StyledCentered>
 				</>
 				);

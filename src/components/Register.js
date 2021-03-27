@@ -4,20 +4,32 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { Centered } from "../styles/global";
 
-class Login extends React.Component {
+class Register extends React.Component {
 	state = {
 		email: "",
 		password: "",
+		name: "",
 	}
 	
 	
 	render() {
-	  const {email, password} = this.state;
+	  const {email, password, name} = this.state;
+		
 	  return (
 		<Centered>
 			<h1> Teacher </h1>
             <Form>
-              <Form.Group controlId="email">
+              <Form.Group controlId="nameField">
+			  <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={name}
+                  onChange={(e) =>
+                    this.setState({ name: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group controlId="emailField">
 			  <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
@@ -27,7 +39,7 @@ class Login extends React.Component {
                   }
                 />
               </Form.Group>
-              <Form.Group controlId="password">
+              <Form.Group controlId="passwordField">
 			  <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="text"
@@ -38,19 +50,10 @@ class Login extends React.Component {
                 />
               </Form.Group>
             </Form>
-			
             <Button
               variant="primary"
               onClick={() =>
-                this.props.attemptLogin(email, password)
-              }
-            >
-              Login
-            </Button>
-			<Button
-              variant="primary"
-              onClick={() =>
-                this.props.setRender("register")
+                this.props.attemptRegister(name, email, password)
               }
             >
               Register
@@ -60,4 +63,4 @@ class Login extends React.Component {
 	}
 };
 
-export default Login;
+export default Register;

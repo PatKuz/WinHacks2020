@@ -163,7 +163,6 @@ class Room extends React.Component {
                     <Modal.Body>
 						<Form>
 							<StyledFormGroup controlId="question">
-								<Form.Label></Form.Label>
 								<StyledFormControl
 								type="text"
 								placeholder="Question Title"
@@ -173,7 +172,7 @@ class Room extends React.Component {
 								}
 								/> 
 								<StyledFormControlBody
-								type="text"
+								as="textarea"
 								placeholder = "Question Body"
 								value={questionBody}
 								onChange={(e) =>

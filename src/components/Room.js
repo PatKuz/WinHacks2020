@@ -14,7 +14,6 @@ const StyledFormGroup = styled(Form.Group)`
 
   background-color: #ffffff;
   border-radius: 2px;
-  padding: 20px 20px;
   font-family: 'Overpass', sans-serif;
   font-size: 20px;
   color: #242424;
@@ -44,7 +43,6 @@ const StyledFormControlBody = styled(Form.Control)`
   width: 400px;
   height: 100px;
   margin-left: 20px;
-  margin-top: 20px;
   font-family: 'Overpass', sans-serif;
   font-size: 16px;
   display: inline-block;

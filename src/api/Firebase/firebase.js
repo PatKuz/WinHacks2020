@@ -75,6 +75,8 @@ class Firebase {
   // *** User API ***
   user = (uid) => this.firestore.doc(`users/${uid}`);
   users = () => this.firestore.collection("users");
+  
+  rooms = () => this.firestore.collection("rooms");
 }
 
 let firebase;

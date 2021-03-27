@@ -1,0 +1,1 @@
+(self.webpackChunkclass_connect=self.webpackChunkclass_connect||[]).push([[482],{8482:function(c,s,n){"use strict";n.r(s);n(7489)}}]);

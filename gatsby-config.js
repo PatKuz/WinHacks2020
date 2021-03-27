@@ -3,6 +3,7 @@ module.exports = {
     title: `ClassConnect`,
     description: `A Zoom assistance tool.`,
     author: `Bro Code`,
+    siteUrl: `https://classconnect.tech`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

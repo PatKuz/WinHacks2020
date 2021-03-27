@@ -127,8 +127,9 @@ const StyledParentVote = styled.div`
   margin-right: 3px;
 `;
 
-const StyledVote = styled.a`
+const StyledVote = styled(Button)`
   color: #242424;
+  background-color: ${(props) => props.color};
   transition-duration: 0.2s;
   margin-left: 91%;
   cursor: pointer;
@@ -136,8 +137,9 @@ const StyledVote = styled.a`
   border-radius: 18px;
   border: 2px solid #242424;
   padding: 2px 8px;
+  margin-bottom: 10px;
   &:hover {
-    background-color: #22bc22;
+    background-color: ${(props) => props.hoverColor};
     color: #ffffff;
   }
 `;
@@ -211,6 +213,8 @@ class Room extends React.Component {
     }
   };
 
+  dealWithUpvote = (question) => {};
+
   render() {
     const {
       showHide,
@@ -218,19 +222,36 @@ class Room extends React.Component {
       questionBody,
       chips,
       errorMsg,
+      studentID,
     } = this.state;
 
     const Questions = () =>
       Object.keys(this.props.room.questions).map((key) => {
+        const question = this.props.room.questions[key];
+
         return (
           <StyledDivTwo key={key}>
-            <div> {this.props.room.questions[key].title} </div>
+            <div> {question.title} </div>
             <hr />
             <StyledQuestion>
               {" "}
-              {this.props.room.questions[key].description}{" "}
+              {question.description}{" "}
               <StyledParentVote>
-                <StyledVote>3 Votes</StyledVote>
+                <StyledVote
+                  color={
+                    question.upvotes.hasOwnProperty(studentID)
+                      ? "#22bc22"
+                      : "#ffffff"
+                  }
+                  hoverColor={
+                    question.upvotes.hasOwnProperty(studentID)
+                      ? "#ff6961"
+                      : "#22bc22"
+                  }
+                  onClick={() => this.dealWithUpvote(question)}
+                >
+                  {question.upvotes.length || 0} Votes
+                </StyledVote>
               </StyledParentVote>
             </StyledQuestion>
           </StyledDivTwo>

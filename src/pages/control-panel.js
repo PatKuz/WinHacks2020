@@ -5,7 +5,7 @@ import { compose } from "recompose";
 
 import {withFirebase, withAuthorization} from "../api/"
 import { Centered } from "../styles/global";
-import Card from "../components/Card";
+import ControlCard from "../components/ControlCard";
 import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 import Room from "../components/Room";

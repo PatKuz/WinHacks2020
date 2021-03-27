@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
-import Background from "../images/home-background.png";
+import Background from "../images/pattern_3.svg";
 import { Button, Modal } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import ReactChipInput from "react-chip-input";

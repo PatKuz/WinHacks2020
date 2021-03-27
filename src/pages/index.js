@@ -132,7 +132,16 @@ class IndexPage extends Component {
       });
   };
 
-  upvoteQuestion = (roomID, questionID, studentID) => {};
+  updateRoom = (room) => {
+    const id = room.id;
+    delete room.id;
+    this.props.firebase
+      .room(id)
+      .set(room)
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   exitRoom = () => {
     this.setRoomCode("");
@@ -197,8 +206,8 @@ class IndexPage extends Component {
           <Room
             room={room}
             addQuestion={this.addQuestion}
-            upvoteQuestion={this.upvoteQuestion}
             exitRoom={this.exitRoom}
+            updateRoom={this.updateRoom}
           />
         </>
       );

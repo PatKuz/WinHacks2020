@@ -213,7 +213,23 @@ class Room extends React.Component {
     }
   };
 
-  dealWithUpvote = (question) => {};
+  dealWithUpvote = (question, questionID) => {
+    const { studentID } = this.state;
+    const room = this.props.room;
+
+    if (question.upvotes.hasOwnProperty(studentID)) {
+      console.log(room.questions[questionID].upvotes);
+      delete room.questions[questionID].upvotes[studentID];
+
+      console.log(room.questions[questionID]);
+    } else {
+      room.questions[questionID].upvotes[studentID] = true;
+
+      console.log(room.questions[questionID]);
+    }
+
+    this.props.updateRoom(room);
+  };
 
   render() {
     const {
@@ -248,7 +264,7 @@ class Room extends React.Component {
                       ? "#ff6961"
                       : "#22bc22"
                   }
-                  onClick={() => this.dealWithUpvote(question)}
+                  onClick={() => this.dealWithUpvote(question, key)}
                 >
                   {question.upvotes.length || 0} Votes
                 </StyledVote>

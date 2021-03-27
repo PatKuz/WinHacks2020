@@ -25,6 +25,7 @@ const StyledFormControl = styled(Form.Control)`
   position: relative;
   text-decoration: none;
   border: 2px solid #5458ec;
+  border-radius: 8px;
   width: 400px;
   height: 40px;
   margin-left: 20px;
@@ -38,6 +39,7 @@ const StyledFormControlBody = styled(Form.Control)`
   position: relative;
   text-decoration: none;
   border: 2px solid #5458ec;
+  border-radius: 8px;
   width: 400px;
   height: 100px;
   margin-left: 20px;

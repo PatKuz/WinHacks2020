@@ -67,7 +67,7 @@ const StyledDivTwo = styled.div`
   border-radius: 10px;
   margin-top: 8px;
   text-align: left;
-  height: 105px;
+  height: 130px;
   border: 2px solid #242424;
   left: 0;
   right: 0;
@@ -121,6 +121,25 @@ const StyledLeave = styled(Button)`
 
 const StyledQuestion = styled.div`
   font-size: 15px;
+`;
+
+const StyledParentVote = styled.div`
+  margin-right: 3px;
+`;
+
+const StyledVote = styled.a`
+  color: #242424;
+  transition-duration: 0.2s;
+  margin-left: 91%;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 18px;
+  border: 2px solid #242424;
+  padding: 2px 8px;
+  &:hover {
+    background-color: #22bc22;
+    color: #ffffff;
+  }
 `;
 
 class Room extends React.Component {
@@ -210,6 +229,9 @@ class Room extends React.Component {
             <StyledQuestion>
               {" "}
               {this.props.room.questions[key].description}{" "}
+              <StyledParentVote>
+                <StyledVote>3 Votes</StyledVote>
+              </StyledParentVote>
             </StyledQuestion>
           </StyledDivTwo>
         );

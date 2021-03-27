@@ -220,12 +220,8 @@ class Room extends React.Component {
     if (question.upvotes.hasOwnProperty(studentID)) {
       console.log(room.questions[questionID].upvotes);
       delete room.questions[questionID].upvotes[studentID];
-
-      console.log(room.questions[questionID]);
     } else {
       room.questions[questionID].upvotes[studentID] = true;
-
-      console.log(room.questions[questionID]);
     }
 
     this.props.updateRoom(room);
@@ -241,15 +237,26 @@ class Room extends React.Component {
       studentID,
     } = this.state;
 
+    const OrderedList = Object.entries(this.props.room.questions).sort(
+      (a, b) => {
+        let amountOne = 0;
+        Object.keys(a[1].upvotes).map((key) => amountOne++);
+        let amountTwo = 0;
+        Object.keys(b[1].upvotes).map((key) => amountTwo++);
+
+        return amountTwo > amountOne ? 1 : -1;
+      }
+    );
+
     const Questions = () =>
-      Object.keys(this.props.room.questions).map((key) => {
-        const question = this.props.room.questions[key];
+      OrderedList.map((val) => {
+        const question = val[1];
 
         let amount = 0;
         Object.keys(question.upvotes).map((key) => amount++);
 
         return (
-          <StyledDivTwo key={key}>
+          <StyledDivTwo key={val[0]} amount={amount}>
             <div> {question.title} </div>
             <hr />
             <StyledQuestion>
@@ -267,7 +274,7 @@ class Room extends React.Component {
                       ? "#ff6961"
                       : "#22bc22"
                   }
-                  onClick={() => this.dealWithUpvote(question, key)}
+                  onClick={() => this.dealWithUpvote(question, val[0])}
                 >
                   {amount} Votes
                 </StyledVote>

@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from 'styled-components'
+import { v5 as uuidv5 } from 'uuid';
 
 import Container from 'react-bootstrap/Container'
 import Background from "../images/home-background.png";
@@ -110,7 +111,9 @@ class Room extends React.Component {
     }
 	
 	componentDidMount() {
-		//Generate student id
+		if (studentID === "") {
+			this.setState({studentID: uuidv5});
+		}
 	}
 
     handleModalShowHide() {

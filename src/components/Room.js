@@ -144,6 +144,22 @@ const StyledVote = styled(Button)`
   }
 `;
 
+const StyledConfused = styled(Button)`
+  color: #242424;
+  background-color: ${(props) => props.color};
+  transition-duration: 0.2s;
+  margin-right: -80%;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 18px;
+  border: 2px solid #242424;
+  padding: 5% 5%;
+  &:hover {
+    background-color: ${(props) => props.hoverColor};
+    color: #ffffff;
+  }
+`;
+
 class Room extends React.Component {
   constructor() {
     super();
@@ -288,6 +304,7 @@ class Room extends React.Component {
         <StyledLeave onClick={() => this.props.exitRoom()}>
           Leave Room
         </StyledLeave>
+        <StyledConfused>I'm Confused</StyledConfused>
         <StyledDiv>
           <Questions />
         </StyledDiv>

@@ -63,15 +63,15 @@ const StyledDivTwo = styled.div`
   background-color: #e2e2e2;
   display: inline-block;
   padding: 10px 10px;
-  width: 90%;
+  width: 96%;
   border-radius: 10px;
   margin-top: 8px;
   text-align: left;
-  height: 130px;
+  height: 140px;
   border: 2px solid #242424;
   left: 0;
   right: 0;
-  margin-left: 5%;
+  margin-left: 2%;
 `;
 
 const BackgroundDiv = styled.div`
@@ -131,7 +131,7 @@ const StyledVote = styled(Button)`
   color: #242424;
   background-color: ${(props) => props.color};
   transition-duration: 0.2s;
-  margin-left: 91%;
+  margin-left: 90%;
   cursor: pointer;
   text-decoration: none;
   border-radius: 18px;

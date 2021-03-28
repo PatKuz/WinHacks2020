@@ -104,6 +104,23 @@ const StyledVote = styled(Button)`
   }
 `;
 
+const StyledConfused = styled(Button)`
+  color: #242424;
+  background-color: #ffffff;
+  transition-duration: 0.2s;
+  margin-right: -75%;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 18px;
+  border: 2px solid #242424;
+  padding: 50px 50px;
+  font-size: 24px;
+  &:hover {
+    background-color: ${(props) => props.hoverColor};
+    color: #ffffff;
+  }
+`;
+
 class TeacherRoom extends React.Component {
   constructor() {
     super();
@@ -221,6 +238,7 @@ class TeacherRoom extends React.Component {
         <StyledLeave onClick={() => this.props.closeRoom()}>
           End Session
         </StyledLeave>
+        <StyledConfused>A Student Is Confused</StyledConfused>
         <StyledDiv>
           <h1> Room Code: {this.props.room.id} </h1>
           <Questions />

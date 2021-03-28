@@ -83,7 +83,7 @@ def create(session, key):
             ID UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
             TITLE STRING,
             QUESTION STRING,
-            VOTES STRING
+            VOTES INT
             );''')
 
 @app.route('/testinsert')
@@ -141,6 +141,7 @@ def insertSession():
     uuid = form["uuid"]
     questions = form["questions"]
 
+    uuid = 'a' + uuid.replace('-','').replace('\"','')
     table_name = uuid
     print("uuid")
     print(uuid)

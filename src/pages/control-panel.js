@@ -68,11 +68,11 @@ class ControlPage extends React.Component {
     this.setState({ roomCode });
   };
 
-  attemptLogin = (login) => {
+  attemptLogout = () => {
     this.props.firebase
-      .doSignInWithEmail(login.email, login.password)
+      .doSignOut()
       .then(() => {
-        navigate("/control-panel");
+        navigate("/");
       })
       .catch((err) => console.error(err));
   };
@@ -93,6 +93,7 @@ class ControlPage extends React.Component {
             <ControlCard
               authUser={this.context}
               downloadData={this.downloadData}
+              attemptLogout={this.attemptLogout}
             />
           </StyledCentered>
         </>

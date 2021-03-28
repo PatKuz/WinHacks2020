@@ -91,7 +91,10 @@ class ControlCard extends React.Component {
         <hr />
         <Row>
           <StyledButton> Start Session </StyledButton>
-          <StyledButton> Logout </StyledButton>
+          <StyledButton onClick={() => this.props.attemptLogout()}>
+            {" "}
+            Logout{" "}
+          </StyledButton>
         </Row>
         <hr />
         <Row>

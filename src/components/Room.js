@@ -147,7 +147,7 @@ const StyledVote = styled(Button)`
 
 const StyledConfused = styled(Button)`
   color: #242424;
-  background-color: #ffffff;
+  background-color: ${(props) => props.color};
   transition-duration: 0.2s;
   margin-right: -85%;
   margin-top: 40%;
@@ -307,11 +307,21 @@ class Room extends React.Component {
     return (
       <BackgroundDiv>
         <StyledLeave
-          onClick={() => this.props.exitRoom(this.props.room.id, studentID)}
+          onClick={() => this.props.exitRoom(studentID, this.props.room.id)}
         >
           Leave Room
         </StyledLeave>
-        <StyledConfused>I'm Confused</StyledConfused>
+        <StyledConfused
+          color={this.props.room.students[studentID] ? "#ff6961" : "#ffffff"}
+          hoverColor={
+            this.props.room.students[studentID] ? "#22bc22" : "#ff6961"
+          }
+          onClick={() =>
+            this.props.toggleConfused(studentID, this.props.room.id)
+          }
+        >
+          I'm Confused
+        </StyledConfused>
         <StyledDiv>
           <Questions />
         </StyledDiv>

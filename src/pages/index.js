@@ -73,14 +73,23 @@ class IndexPage extends Component {
 
   addStudent = (studentID, roomID) => {
     const { rooms } = this.state;
-
     const room = rooms.find((r) => r.id === roomID);
-
-    console.log(studentID, roomID);
 
     room.students[studentID] = false;
 
-    console.log(room);
+    this.props.firebase
+      .room(roomID)
+      .set(room)
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  toggleConfused = (studentID, roomID) => {
+    const { rooms } = this.state;
+    const room = rooms.find((r) => r.id === roomID);
+    console.log(room.students[studentID]);
+    room.students[studentID] = !room.students[studentID];
 
     this.props.firebase
       .room(roomID)
@@ -166,7 +175,7 @@ class IndexPage extends Component {
       });
   };
 
-  exitRoom = (roomID, studentID) => {
+  exitRoom = (studentID, roomID) => {
     this.setRoomCode("");
     const { rooms } = this.state;
 
@@ -241,6 +250,7 @@ class IndexPage extends Component {
             exitRoom={this.exitRoom}
             updateRoom={this.updateRoom}
             addStudent={this.addStudent}
+            toggleConfused={this.toggleConfused}
           />
         </>
       );

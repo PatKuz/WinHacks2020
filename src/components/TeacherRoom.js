@@ -99,7 +99,7 @@ const StyledVote = styled(Button)`
   padding: 2px 8px;
   margin-bottom: 10px;
   &:hover {
-    background-color: #22bc22;
+    background-color: #ff6961;
     color: #ffffff;
   }
 `;
@@ -118,9 +118,6 @@ class TeacherRoom extends React.Component {
       showHide: !this.state.showHide,
     });
   }
-
-  dealWithDeleteQuestion = () => {};
-  dealWithDeleteRoom = () => {};
 
   render() {
     const { showHide, errorMsg } = this.state;
@@ -145,13 +142,16 @@ class TeacherRoom extends React.Component {
 
         return (
           <StyledDivTwo key={val[0]} amount={amount}>
-            <div> {question.title} </div>
+            <div>
+              {" "}
+              {question.title} | {amount} Upvote{amount !== 1 ? "s" : ""}{" "}
+            </div>
             <hr />
             <StyledQuestion>
               {" "}
               {question.description}{" "}
               <StyledParentVote>
-                <StyledVote onClick={() => this.dealWithDeleteQuestion()}>
+                <StyledVote onClick={() => this.props.deleteQuestion(val[0])}>
                   Remove
                 </StyledVote>
               </StyledParentVote>
@@ -162,11 +162,11 @@ class TeacherRoom extends React.Component {
 
     return (
       <BackgroundDiv>
-        <h1> {this.props.room.id} </h1>
-        <StyledLeave onClick={() => this.props.exitRoom()}>
+        <StyledLeave onClick={() => this.props.closeRoom()}>
           End Session
         </StyledLeave>
         <StyledDiv>
+          <h1> Room Code: {this.props.room.id} </h1>
           <Questions />
         </StyledDiv>
         <StyledButton onClick={() => this.handleModalShowHide()}>

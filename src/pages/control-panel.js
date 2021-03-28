@@ -111,7 +111,42 @@ class ControlPage extends React.Component {
       });
   };
 
-  downloadData = () => {};
+  downloadData = (room) => {
+    console.log(room);
+  };
+
+  saveData = (room) => {
+    console.log(room);
+  };
+
+  deleteQuestion = (questionID) => {
+    let { roomCode, rooms } = this.state;
+    const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
+
+    delete room.questions[questionID];
+
+    this.props.firebase
+      .room(roomCode)
+      .set(room)
+      .catch((err) => console.log(err));
+  };
+
+  closeRoom = () => {
+    let { roomCode, rooms } = this.state;
+    const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
+
+    this.saveData(room);
+
+    this.props.firebase
+      .room(roomCode)
+      .delete(() => {
+        this.setRoomCode("");
+      })
+      .catch((err) => {
+        this.setErrorMsg("Room Close Failing!");
+        console.log(err);
+      });
+  };
 
   render() {
     let { errorMsg, rooms, roomCode } = this.state;
@@ -167,7 +202,11 @@ class ControlPage extends React.Component {
       return (
         <>
           <SEO title="Room" route="/" />
-          <TeacherRoom room={room} />
+          <TeacherRoom
+            room={room}
+            deleteQuestion={this.deleteQuestion}
+            closeRoom={this.closeRoom}
+          />
         </>
       );
   }

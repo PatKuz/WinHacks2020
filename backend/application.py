@@ -38,7 +38,7 @@ def getTableName():
 
 def setTableName(name):
     table_name = name
-
+    
 CORS(app)
 
 class Question(Base):
@@ -53,6 +53,11 @@ class Question(Base):
     title = Column(String)
     question = Column(String)
     votes = Column(Integer)
+
+
+@app.route('/')
+def test():
+    return "Hello"
 
 
 @app.route('/droptable/<key>')

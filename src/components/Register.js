@@ -88,39 +88,41 @@ class Register extends React.Component {
           <H5Div>
             <h5>
               {" "}
-              If you'd like to request access to our product, please fill the
-              form below. A member from our team will contact you shortly for
-              the next steps.{" "}
+              Administrative access to this beta product is availabe through a
+              monthly subscription at a billed rate of $14.99/mo per
+              administrative account. To request administrative access, please
+              fill out the form below and our business team will be in contact
+              through the provided email shortly.{" "}
             </h5>
           </H5Div>
           <StyledFormGroup controlId="emailField">
-            Email
             <StyledFormControlz
               type="email"
+              placeholder="Email"
               value={email}
               onChange={(e) => this.setState({ email: e.target.value })}
             />
           </StyledFormGroup>
           <StyledFormGroup controlId="passwordField">
-            Password
             <StyledFormControl
               type="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => this.setState({ password: e.target.value })}
             />
           </StyledFormGroup>
           <StyledFormGroup controlId="nameField">
-            Name
             <StyledFormControl
               type="text"
+              placeholder="Name"
               value={name}
               onChange={(e) => this.setState({ name: e.target.value })}
             />
           </StyledFormGroup>
           <StyledFormGroup controlId="nameField">
-            Institution
             <StyledFormControl
               type="text"
+              placeholder="Institution"
               value={institution}
               onChange={(e) => this.setState({ institution: e.target.value })}
             />
@@ -133,7 +135,7 @@ class Register extends React.Component {
             this.props.attemptRegister(name, email, password, institution)
           }
         >
-          Register
+          Submit
         </StyledButton>
       </>
     );

@@ -3,7 +3,7 @@ import { navigate } from "gatsby";
 import styled from "styled-components";
 import { compose } from "recompose";
 import { v4 as uuidv4 } from "uuid";
-
+import axios from "axios";
 import { withFirebase, withAuthorization, AuthUserContext } from "../api/";
 import { Centered } from "../styles/global";
 import TeacherRoom from "../components/TeacherRoom";
@@ -117,8 +117,54 @@ class ControlPage extends React.Component {
     console.log(room);
   };
 
-  saveData = (room) => {
+  saveData = (room, roomUUID) => {
     console.log(room);
+
+    var id = room.id;
+    var questions = room.questions;
+    var roomName = room.roomName;
+
+    var parsedQuestions = [];
+
+    console.log("Printing questions");
+    for (var key in questions) {
+      console.log(questions[key]);
+      parsedQuestions.push({
+        title: questions[key]["description"],
+        description: questions[key]["description"],
+        votes: "3",
+      });
+    }
+
+    console.log("Printing out stuff");
+    console.log(parsedQuestions);
+    console.log(id);
+    console.log(roomName);
+
+    console.log("Stringified Questions");
+    parsedQuestions = JSON.stringify(parsedQuestions);
+    console.log(parsedQuestions);
+
+    var bodyFormData = new FormData();
+    bodyFormData.append("id", id);
+    bodyFormData.append("questions", parsedQuestions);
+    bodyFormData.append("roomName", roomName);
+    bodyFormData.append("uuid", roomUUID);
+
+    axios({
+      method: "post",
+      url: "http://127.0.0.1:4000/insertSession",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
   };
 
   deleteQuestion = (questionID) => {

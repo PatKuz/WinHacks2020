@@ -174,7 +174,12 @@ class ControlCard extends React.Component {
             <Form>
               <StyledFormGroup controlId="roomname">
                 <StyledFormControl
-                  as="textarea"
+                  onKeyPress={(e) => {
+                    if (e.charCode === 13) {
+                      this.handleSessionCreation();
+                    }
+                  }}
+                  type="text"
                   placeholder="Room Name"
                   value={roomName}
                   onChange={(e) => this.setState({ roomName: e.target.value })}
@@ -190,7 +195,7 @@ class ControlCard extends React.Component {
               Close
             </Button>
             <Button onClick={() => this.handleSessionCreation()}>
-              Post Question
+              Create Session
             </Button>
           </Modal.Footer>
         </Modal>

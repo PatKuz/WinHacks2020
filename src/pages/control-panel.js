@@ -133,6 +133,23 @@ class ControlPage extends React.Component {
       .catch((err) => console.log(err));
   };
 
+  clearSessions = () => {
+    this.props.firebase
+      .user(this.context.uid)
+      .set({
+        email: this.context.email,
+        name: this.context.name,
+        pastSessions: {},
+        roles: this.context.roles,
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setErrorMsg("Unable to save your data!");
+      });
+
+    this.context.pastSessions = {};
+  };
+
   closeRoom = () => {
     let { roomCode, rooms } = this.state;
     const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
@@ -187,6 +204,7 @@ class ControlPage extends React.Component {
               downloadData={this.downloadData}
               attemptLogout={this.attemptLogout}
               createSession={this.createSession}
+              clearSessions={this.clearSessions}
             />
           </StyledCentered>
         </>
@@ -202,6 +220,7 @@ class ControlPage extends React.Component {
               downloadData={this.downloadData}
               attemptLogout={this.attemptLogout}
               createSession={this.createSession}
+              clearSessions={this.clearSessions}
             />
           </StyledCentered>
         </>
@@ -218,6 +237,7 @@ class ControlPage extends React.Component {
               downloadData={this.downloadData}
               attemptLogout={this.attemptLogout}
               createSession={this.createSession}
+              clearSessions={this.clearSessions}
             />
           </StyledCentered>
         </>

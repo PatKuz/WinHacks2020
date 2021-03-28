@@ -56,8 +56,8 @@ const StyledButton = styled(Button)`
   cursor: pointer;
   font-size: 15px;
   border: 2px solid #ffffff;
-  margin-right: 140px;
-  margin-left: 140px;
+  margin-right: 50px;
+  margin-left: 50px;
   &:hover {
     background-color: #f2f3f4;
     color: #242424;
@@ -107,6 +107,15 @@ const StyledHeader = styled.div`
   font-size: 25px;
   color: #242424;
   margin-left: 15px;
+`;
+
+const StyledHeader2 = styled.div`
+  font-family: "Overpass", sans-serif;
+  font-size: 20px;
+  color: #242424;
+  padding-top: 10px;
+  margin-left: 30px;
+  font-style: italic;
 `;
 
 const StyledButtonContainer = styled.div`
@@ -162,6 +171,11 @@ class ControlCard extends React.Component {
         );
       });
 
+    let amountOfPreviousSessions = 0;
+    Object.keys(this.props.authUser.pastSessions).map(
+      (sessionID) => amountOfPreviousSessions++
+    );
+
     return (
       <StyledContainer>
         <Modal
@@ -213,6 +227,10 @@ class ControlCard extends React.Component {
               {" "}
               Start Session{" "}
             </StyledButton>
+            <StyledButton onClick={() => this.props.clearSessions()}>
+              {" "}
+              Clear Past Sessions{" "}
+            </StyledButton>
             <StyledButton onClick={() => this.props.attemptLogout()}>
               {" "}
               Logout{" "}
@@ -224,7 +242,11 @@ class ControlCard extends React.Component {
           <StyledHeader> Past Sessions </StyledHeader>
         </Row>
         <Row>
-          <PreviousSessions />
+          {amountOfPreviousSessions !== 0 ? (
+            <PreviousSessions />
+          ) : (
+            <StyledHeader2> No Past Sessions </StyledHeader2>
+          )}
         </Row>
       </StyledContainer>
     );

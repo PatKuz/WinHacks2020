@@ -162,9 +162,7 @@ class ControlCard extends React.Component {
             <div> Session Name: {session.name} </div>
             <div> Session Code: {session.code} [EXPIRED]</div>
             <hr />
-            <StyledButtonz
-              onClick={() => this.props.downloadData(session, sessionID)}
-            >
+            <StyledButtonz onClick={() => this.props.downloadData(sessionID)}>
               Download Session
             </StyledButtonz>
           </StyledDivTwo>

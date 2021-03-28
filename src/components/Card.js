@@ -78,7 +78,7 @@ class Card extends React.Component {
           </StyledButton>
           <StyledButton onClick={() => this.setRender("teacher")}>
             {" "}
-            Teacher{" "}
+            Faculty{" "}
           </StyledButton>
         </Row>
         <hr />

@@ -98,6 +98,13 @@ class Register extends React.Component {
               and our business team will be in contact through the provided
               email shortly.
             </h5>
+            <h5>
+              <strong>
+                {" "}
+                Only Faculty Accounts are paid! Students have free access as
+                long as their instructor has purchased a license.{" "}
+              </strong>
+            </h5>
           </H5Div>
           <StyledFormGroup controlId="emailField">
             <StyledFormControlz

@@ -171,7 +171,7 @@ class TeacherRoom extends React.Component {
           if (tags.hasOwnProperty(tag)) {
             tags[tag]++;
           } else {
-            tags[tag] = 0;
+            tags[tag] = 1;
           }
           return null;
         });
@@ -261,7 +261,7 @@ class TeacherRoom extends React.Component {
           <StyledH2> Students Confused </StyledH2>
           <CircularProgressbar
             value={nConfused}
-            maxValue={nStudents}
+            maxValue={nStudents === 0 ? 1 : nStudents}
             text={`${percentage * 100}%`}
           />
         </StyledConfused>

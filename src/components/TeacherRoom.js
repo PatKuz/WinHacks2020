@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import Background from "../images/pattern_3.svg";
 import { Button, Modal } from "react-bootstrap";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "../styles/circular-progressbar.css";
 
 const StyledDiv = styled.div`
   background-color: #ffffff;
@@ -122,6 +124,8 @@ class TeacherRoom extends React.Component {
   render() {
     const { showHide, errorMsg } = this.state;
 
+    const percentage = 74;
+
     const OrderedList = Object.entries(this.props.room.questions).sort(
       (a, b) => {
         let amountOne = 0;
@@ -178,10 +182,19 @@ class TeacherRoom extends React.Component {
           centered
         >
           <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
-            <Modal.Title>Enter Question</Modal.Title>
+            <Modal.Title>Statistics</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h5> {errorMsg} </h5>
+
+            <div>
+              Students Actively participating vs Attendees
+              <CircularProgressbar
+                value={percentage}
+                text={`${percentage}% Engaged`}
+              />
+              ;
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button

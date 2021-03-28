@@ -31,28 +31,20 @@ seen_account_ids = set()
 
 app = Flask(__name__)
 
-table_name = ""
+tables = {}
 
-def getTableName():
-    return table_name
-
-def setTableName(name):
-    table_name = name
-    
 CORS(app)
 
-class Question(Base):
-    """The Question class corresponds to the "qdata" database table.
-    """
-    with open('backend/table_name.json') as (f):
-                creds = json.load(f)
-
-    name = str(creds['table_name'])
-    __tablename__ = name
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
-    question = Column(String)
-    votes = Column(Integer)
+def TableCreator(tablename):
+    class Question(Base):
+        """The Question class corresponds to the "qdata" database table.
+        """
+        __tablename__ = tablename
+        id = Column(Integer, primary_key=True)
+        title = Column(String)
+        question = Column(String)
+        votes = Column(Integer)
+    return Question
 
 
 @app.route('/')
@@ -88,18 +80,20 @@ def downloadStuff(uuid):
 
     uuid = 'a' + uuid.replace('-','').replace('\"','')
     
-    data = {'table_name' : uuid}
-
-    with open('backend/table_name.json', 'w') as (f):
-                json.dump(data, f, ensure_ascii=False, indent=4)
-
     table_name = uuid
     results = run_transaction(sessionmaker(bind=engine), lambda s: download(s, uuid))
 
     return Response({'Results' : (results)}, status=200)
 
 def download(session, uuid):
-    sources = session.query(Question).all()
+    data = {'table_name' : uuid}
+    # Base.__tablename__(uuid)
+    if str(uuid) in tables:
+        table = tables[str(uuid)]
+    else:
+        table = TableCreator(str(uuid))
+        tables[str(uuid)] = table
+    sources = session.query(table).all()
     ret = []
     for result in sources:
         ret.append({'id' : str(result.id), 'title':result.title, 'question' : result.question, 'votes' : result.votes})

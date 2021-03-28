@@ -146,9 +146,10 @@ const StyledVote = styled(Button)`
 
 const StyledConfused = styled(Button)`
   color: #242424;
-  background-color: ${(props) => props.color};
+  background-color: #ffffff;
   transition-duration: 0.2s;
-  margin-right: -80%;
+  margin-right: -85%;
+  margin-top: 40%;
   cursor: pointer;
   text-decoration: none;
   border-radius: 18px;

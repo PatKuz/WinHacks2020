@@ -87,13 +87,14 @@ const BackgroundDiv = styled.div`
 const StyledButton = styled(Button)`
   background-color: #ff6961;
   display: inline-block;
-  margin-left: 95%;
+  margin-left: 90%;
   margin-top: -46%;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  border-radius: 6px;
   text-decoration: none;
   position: fixed;
   border: 2px solid #ffffff;
+  padding: 10px 20px;
+  font-size: 15px;
   &:hover {
     background-color: #ffffff !important;
     color: #ff6961;
@@ -311,7 +312,7 @@ class Room extends React.Component {
           <Questions />
         </StyledDiv>
         <StyledButton onClick={() => this.handleModalShowHide()}>
-          +
+          Ask Question
         </StyledButton>
         <Modal
           show={showHide}

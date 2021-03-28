@@ -89,10 +89,14 @@ class Register extends React.Component {
             <h5>
               {" "}
               Administrative access to this beta product is availabe through a
-              monthly subscription at a billed rate of $14.99/mo per
-              administrative account. To request administrative access, please
-              fill out the form below and our business team will be in contact
-              through the provided email shortly.{" "}
+              monthly subscription at a billed rate of{" "}
+              <strong>$14.99/mo</strong> per administrative account, or at a
+              discounted yearly rate of of <strong>$149.99/year</strong>.{" "}
+            </h5>
+            <h5>
+              To request administrative access, please fill out the form below
+              and our business team will be in contact through the provided
+              email shortly.
             </h5>
           </H5Div>
           <StyledFormGroup controlId="emailField">

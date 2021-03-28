@@ -205,7 +205,8 @@ class ControlPage extends React.Component {
           </StyledCentered>
         </>
       );
-    else if (room === undefined || room === null)
+    else if (room === undefined || room === null) {
+      localStorage.setItem("roomCode", "");
       return (
         <>
           <SEO title="Home" route="/" />
@@ -221,7 +222,7 @@ class ControlPage extends React.Component {
           </StyledCentered>
         </>
       );
-    else
+    } else
       return (
         <>
           <SEO title="Room" route="/" />

@@ -90,6 +90,7 @@ class IndexPage extends Component {
       .doSignInWithEmail(email, password)
       .then(() => {
         navigate("/control-panel");
+        this.setErrorMsg("Registration request received!");
       })
       .catch((err) => {
         console.log(err);
@@ -97,7 +98,7 @@ class IndexPage extends Component {
       });
   };
 
-  attemptRegister = (name, email, password) => {
+  attemptRegister = (name, email, password, institution) => {
     this.setErrorMsg("");
     this.props.firebase
       .doRegisterWithEmail(email, password)
@@ -109,11 +110,9 @@ class IndexPage extends Component {
           .set({
             name: name,
             email: email,
-            roles: { professor: true },
+            roles: { requested: true },
+            institution: institution,
             pastSessions: {},
-          })
-          .then(() => {
-            this.attemptLogin(email, password);
           })
           .catch((err) => {
             console.log(err);
@@ -188,7 +187,8 @@ class IndexPage extends Component {
           </StyledCentered>
         </>
       );
-    else if (room === null || room === undefined)
+    else if (room === null || room === undefined) {
+      localStorage.setItem("roomCode", "");
       return (
         <>
           <SEO title="Home" route="/" />
@@ -204,7 +204,7 @@ class IndexPage extends Component {
           </StyledCentered>
         </>
       );
-    else
+    } else
       return (
         <>
           <SEO title="Room" route="/" />

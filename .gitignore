@@ -5,6 +5,7 @@ public/*
 public
 public/
 .idea/*
+.firebase
 env/*
 __pycache__/*
 backend/__pycache__/*

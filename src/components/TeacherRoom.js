@@ -190,9 +190,6 @@ class TeacherRoom extends React.Component {
             >
               Close
             </Button>
-            <Button onClick={() => this.dealWithDeleteRoom()}>
-              Post Question
-            </Button>
           </Modal.Footer>
         </Modal>
       </BackgroundDiv>

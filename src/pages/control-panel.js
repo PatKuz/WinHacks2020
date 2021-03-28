@@ -11,7 +11,7 @@ import ControlCard from "../components/ControlCard";
 import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 
-import Background from "../images/pattern_3.svg";
+import Background from "../images/pattern_4.svg";
 
 const StyledCentered = styled(Centered)`
   background: url(${Background});

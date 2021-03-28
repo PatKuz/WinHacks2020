@@ -4,6 +4,9 @@ import styled from "styled-components";
 import Background from "../images/pattern_4.svg";
 import { Button, Modal } from "react-bootstrap";
 
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+
 const StyledDiv = styled.div`
   background-color: #ffffff;
   border-left: 3px solid #292929;
@@ -47,9 +50,11 @@ const BackgroundDiv = styled.div`
 const StyledButton = styled(Button)`
   background-color: #ff6961;
   display: inline-block;
-  margin-left: 95%;
+  margin-left: 90%;
   margin-top: -46%;
-  border-radius: 20px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 15px;
   margin-bottom: 20px;
   text-decoration: none;
   position: fixed;
@@ -104,7 +109,8 @@ const StyledVote = styled(Button)`
   }
 `;
 
-const StyledConfused = styled(Button)`
+const StyledConfused = styled.div`
+  text-align: center;
   color: #242424;
   background-color: #ffffff;
   transition-duration: 0.2s;
@@ -116,9 +122,11 @@ const StyledConfused = styled(Button)`
   padding: 50px 50px;
   font-size: 24px;
   &:hover {
-    background-color: ${(props) => props.hoverColor};
-    color: #ffffff;
   }
+`;
+
+const StyledH2 = styled.h2`
+  margin-bottom: 20px;
 `;
 
 class TeacherRoom extends React.Component {
@@ -233,18 +241,36 @@ class TeacherRoom extends React.Component {
         );
       });
 
+    let nConfused = 0;
+    let nStudents = 0;
+    Object.keys(this.props.room.students).map((val) => {
+      nStudents++;
+      if (this.props.room.students[val]) nConfused++;
+
+      return null;
+    });
+
+    let percentage = nConfused / nStudents;
+
     return (
       <BackgroundDiv>
         <StyledLeave onClick={() => this.props.closeRoom()}>
           End Session
         </StyledLeave>
-        <StyledConfused>A Student Is Confused</StyledConfused>
+        <StyledConfused>
+          <StyledH2> Students Confused </StyledH2>
+          <CircularProgressbar
+            value={nConfused}
+            maxValue={nStudents}
+            text={`${percentage * 100}%`}
+          />
+        </StyledConfused>
         <StyledDiv>
           <h1> Room Code: {this.props.room.id} </h1>
           <Questions />
         </StyledDiv>
         <StyledButton onClick={() => this.handleModalShowHide()}>
-          Statistic
+          Statistics
         </StyledButton>
         <Modal
           show={showHide}

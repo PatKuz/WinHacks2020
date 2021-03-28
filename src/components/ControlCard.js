@@ -28,6 +28,27 @@ const StyledButton = styled(Button)`
   cursor: pointer;
   font-size: 15px;
   border: 2px solid #ffffff;
+  margin-right: 140px;
+  margin-left: 140px;
+  &:hover {
+    background-color: #f2f3f4;
+    color: #242424;
+    border: 2px solid #242424;
+  }
+`;
+
+const StyledButtonz = styled(Button)`
+  border: none;
+  color: #242424;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.2s;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-size: 15px;
+  border: 2px solid #ffffff;
   &:hover {
     background-color: #f2f3f4;
     color: #242424;
@@ -53,6 +74,18 @@ const StyledDivTwo = styled.div`
   margin-left: 2%;
 `;
 
+const StyledHeader = styled.div`
+  font-family: "Overpass", sans-serif;
+  font-size: 25px;
+  color: #242424;
+  margin-left: 15px;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: inline-block;
+  margin: auto;
+`;
+
 class ControlCard extends React.Component {
   state = {
     render: "student",
@@ -74,11 +107,11 @@ class ControlCard extends React.Component {
             <div> Session Name: {session.name} </div>
             <div> Session Code: {session.code} [EXPIRED]</div>
             <hr />
-            <StyledButton
+            <StyledButtonz
               onClick={() => this.props.downloadData(session, sessionID)}
             >
               Download Session
-            </StyledButton>
+            </StyledButtonz>
           </StyledDivTwo>
         );
       });
@@ -86,19 +119,21 @@ class ControlCard extends React.Component {
     return (
       <StyledContainer>
         <Row>
-          <h1> Options </h1>
+          <StyledHeader> Options </StyledHeader>
         </Row>
         <hr />
         <Row>
-          <StyledButton> Start Session </StyledButton>
-          <StyledButton onClick={() => this.props.attemptLogout()}>
-            {" "}
-            Logout{" "}
-          </StyledButton>
+          <StyledButtonContainer>
+            <StyledButton> Start Session </StyledButton>
+            <StyledButton onClick={() => this.props.attemptLogout()}>
+              {" "}
+              Logout{" "}
+            </StyledButton>
+          </StyledButtonContainer>
         </Row>
         <hr />
         <Row>
-          <h1> Past Sessions </h1>
+          <StyledHeader> Past Sessions </StyledHeader>
         </Row>
         <Row>
           <PreviousSessions />

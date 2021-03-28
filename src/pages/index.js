@@ -71,6 +71,25 @@ class IndexPage extends Component {
     });
   };
 
+  addStudent = (studentID, roomID) => {
+    const { rooms } = this.state;
+
+    const room = rooms.find((r) => r.id === roomID);
+
+    console.log(studentID, roomID);
+
+    room.students[studentID] = false;
+
+    console.log(room);
+
+    this.props.firebase
+      .room(roomID)
+      .set(room)
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   setRoomCode = (roomCode) => {
     this.setErrorMsg("");
 
@@ -147,8 +166,19 @@ class IndexPage extends Component {
       });
   };
 
-  exitRoom = () => {
+  exitRoom = (roomID, studentID) => {
     this.setRoomCode("");
+    const { rooms } = this.state;
+
+    const room = rooms.find((r) => r.id === roomID);
+    delete room.students[studentID];
+
+    this.props.firebase
+      .room(roomID)
+      .set(room)
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -167,7 +197,6 @@ class IndexPage extends Component {
               setRoomCode={this.setRoomCode}
               attemptLogin={this.attemptLogin}
               attemptRegister={this.attemptRegister}
-              addQuestion={this.addQuestion}
             />
           </StyledCentered>
         </>
@@ -182,7 +211,6 @@ class IndexPage extends Component {
               setRoomCode={this.setRoomCode}
               attemptLogin={this.attemptLogin}
               attemptRegister={this.attemptRegister}
-              addQuestion={this.addQuestion}
             />
           </StyledCentered>
         </>
@@ -199,7 +227,6 @@ class IndexPage extends Component {
               setRoomCode={this.setRoomCode}
               attemptLogin={this.attemptLogin}
               attemptRegister={this.attemptRegister}
-              addQuestion={this.addQuestion}
             />
           </StyledCentered>
         </>
@@ -213,6 +240,7 @@ class IndexPage extends Component {
             addQuestion={this.addQuestion}
             exitRoom={this.exitRoom}
             updateRoom={this.updateRoom}
+            addStudent={this.addStudent}
           />
         </>
       );

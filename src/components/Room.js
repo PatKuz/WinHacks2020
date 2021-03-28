@@ -182,10 +182,12 @@ class Room extends React.Component {
     let storedStudentID = localStorage.getItem("studentID");
     if (storedStudentID !== null && storedStudentID !== undefined) {
       this.setState({ studentID: storedStudentID });
+      this.props.addStudent(storedStudentID, this.props.room.id);
     } else if (studentID === "") {
       const uid = uuidv4();
       this.setState({ studentID: uid });
       localStorage.setItem("studentID", uid);
+      this.props.addStudent(uid, this.props.room.id);
     }
   }
 
@@ -304,7 +306,9 @@ class Room extends React.Component {
 
     return (
       <BackgroundDiv>
-        <StyledLeave onClick={() => this.props.exitRoom()}>
+        <StyledLeave
+          onClick={() => this.props.exitRoom(this.props.room.id, studentID)}
+        >
           Leave Room
         </StyledLeave>
         <StyledConfused>I'm Confused</StyledConfused>

@@ -11,7 +11,7 @@ import ControlCard from "../components/ControlCard";
 import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 
-import Background from "../images/pattern_3.svg";
+import Background from "../images/pattern_4.svg";
 
 const StyledCentered = styled(Centered)`
   background: url(${Background});
@@ -205,7 +205,8 @@ class ControlPage extends React.Component {
           </StyledCentered>
         </>
       );
-    else if (room === undefined || room === null)
+    else if (room === undefined || room === null) {
+      localStorage.setItem("roomCode", "");
       return (
         <>
           <SEO title="Home" route="/" />
@@ -221,7 +222,7 @@ class ControlPage extends React.Component {
           </StyledCentered>
         </>
       );
-    else
+    } else
       return (
         <>
           <SEO title="Room" route="/" />

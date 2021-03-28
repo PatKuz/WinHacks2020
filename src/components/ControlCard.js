@@ -38,7 +38,10 @@ const StyledContainer = styled(Container)`
   padding: 14px 16px;
   font-family: "Overpass", sans-serif;
   font-size: 15px;
-  color: #242424;
+  color: #242424
+  height: 20%;
+  overflow:scroll;
+  border: 2px solid #242424;
 `;
 
 const StyledButton = styled(Button)`

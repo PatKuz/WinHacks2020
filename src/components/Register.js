@@ -62,19 +62,37 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const H5Div = styled.div`
+  display: inline-block;
+  margin-left: 20px;
+  &.h5 {
+    font-family: "Overpass", sans-serif;
+    font-size: 20px;
+  }
+`;
+
 class Register extends React.Component {
   state = {
     email: "",
     password: "",
     name: "",
+    institution: "",
   };
 
   render() {
-    const { email, password, name } = this.state;
+    const { email, password, name, institution } = this.state;
 
     return (
       <>
         <Form>
+          <H5Div>
+            <h5>
+              {" "}
+              If you'd like to request access to our product, please fill the
+              form below. A member from our team will contact you shortly for
+              the next steps.{" "}
+            </h5>
+          </H5Div>
           <StyledFormGroup controlId="emailField">
             Email
             <StyledFormControlz
@@ -99,11 +117,21 @@ class Register extends React.Component {
               onChange={(e) => this.setState({ name: e.target.value })}
             />
           </StyledFormGroup>
+          <StyledFormGroup controlId="nameField">
+            Institution
+            <StyledFormControl
+              type="text"
+              value={institution}
+              onChange={(e) => this.setState({ institution: e.target.value })}
+            />
+          </StyledFormGroup>
         </Form>
 
         <StyledButton
           variant="primary"
-          onClick={() => this.props.attemptRegister(name, email, password)}
+          onClick={() =>
+            this.props.attemptRegister(name, email, password, institution)
+          }
         >
           Register
         </StyledButton>

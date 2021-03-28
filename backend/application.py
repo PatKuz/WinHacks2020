@@ -12,7 +12,7 @@ from flask import make_response, request, current_app
 from functools import update_wrapper
 from flask_cors import CORS
 import uuid
-
+import random
 
 with open('backend/creds.json') as (f):
                 creds = json.load(f)
@@ -33,20 +33,31 @@ app = Flask(__name__)
 
 table_name = ""
 
+def getTableName():
+    return table_name
+
+def setTableName(name):
+    table_name = name
+
 CORS(app)
 
 class Question(Base):
     """The Question class corresponds to the "qdata" database table.
     """
-    __tablename__ = table_name
+    with open('backend/table_name.json') as (f):
+                creds = json.load(f)
+
+    name = str(creds['table_name'])
+    __tablename__ = name
     id = Column(Integer, primary_key=True)
     title = Column(String)
     question = Column(String)
     votes = Column(Integer)
 
+
 @app.route('/', methods=['GET'])
 def hello_world():
-    return 'Hello, World!'
+    return Response({'code' : 3}, status=200)
 
 @app.route('/getCode', methods=['GET'])
 def gen_key():
@@ -80,7 +91,7 @@ def createtable(key):
 
 def create(session, key):
     session.execute('CREATE TABLE ' + str(key) + ''' (
-            ID UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
+            ID INTEGER PRIMARY KEY NOT NULL,
             TITLE STRING,
             QUESTION STRING,
             VOTES INT
@@ -129,6 +140,43 @@ def updateVote(questionid):
     return Response("Yes", status=200)
 
 
+
+@app.route('/downloadSession/<uuid>')
+def downloadStuff(uuid):
+    print("This is being downloaded") 
+    print(uuid)
+    uuid = 'a' + uuid.replace('-','').replace('\"','')
+    
+    data = {'table_name' : uuid}
+
+    with open('backend/table_name.json', 'w') as (f):
+                json.dump(data, f, ensure_ascii=False, indent=4)
+
+   
+    table_name = uuid
+
+    
+    results = run_transaction(sessionmaker(bind=engine), lambda s: download(s, uuid))
+    print(results)
+    return Response({'Results' : (results)}, status=200)
+
+def download(session, uuid):
+    # session.execute('SELECT * FROM abd239ec84740426ba99fe82568cf799d')
+    # rows = session.fetchall()
+    # session.commit()
+    # for r in rows:
+    #     print(r)
+    print("Downloading")
+    print(getTableName())
+    sources = session.query(Question).all()
+    print(sources)
+    ret = []
+    for result in sources:
+        ret.append({'id' : str(result.id), 'title':result.title, 'question' : result.question, 'votes' : result.votes})
+    return ret
+
+    
+
 @app.route('/insertSession', methods=['POST'])
 def insertSession():
     print("Here")
@@ -170,8 +218,11 @@ def addStuffTODB(roomId, roomName, uuid, questions):
 def insert(session, uuid, title, question, votes):
     print(uuid)
 
-    sql = 'INSERT INTO ' + uuid + ' (TITLE, QUESTION, VOTES) VALUES (:name, :ques, :vote)'
+    x = random.randint(1,1000)
+
+    sql = 'INSERT INTO ' + uuid + ' (ID,TITLE, QUESTION, VOTES) VALUES (:iu, :name, :ques, :vote)'
     session.execute(sql, {
+        "iu":x,
         "name":title,
         "ques":question,
         "vote":votes

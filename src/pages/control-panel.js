@@ -115,14 +115,16 @@ class ControlPage extends React.Component {
 
   downloadData = (uuid) => {
     //Have to get the uuid of the session somehow
-
+    console.log("Downloading");
     //pass it into the get request
     var bodyFormData = new FormData();
+    console.log("This");
+    console.log(uuid);
     bodyFormData.append("id", uuid);
 
     axios({
       method: "get",
-      url: "http://127.0.0.1:4000/downloadSession",
+      url: "http://127.0.0.1:4000/downloadSession/" + uuid,
       data: bodyFormData,
       headers: { "Content-Type": "multipart/form-data" },
     })

@@ -127,12 +127,15 @@ class ControlPage extends React.Component {
     var parsedQuestions = [];
 
     console.log("Printing questions");
+
     for (var key in questions) {
       console.log(questions[key]);
+      let counter = 0;
+      Object.keys(questions[key].upvotes).map((val) => counter++);
       var question = {
         title: questions[key]["description"],
         description: questions[key]["description"],
-        votes: "3",
+        votes: counter,
       };
       console.log("I'm printing quesiton");
       console.log(question);

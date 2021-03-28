@@ -1,6 +1,6 @@
 from flask import Flask
 from Response import Response
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from cockroachdb.sqlalchemy import run_transaction
@@ -80,10 +80,10 @@ def createtable(key):
 
 def create(session, key):
     session.execute('CREATE TABLE ' + str(key) + ''' (
-            ID INT PRIMARY KEY NOT NULL,
+            ID UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
             TITLE STRING,
             QUESTION STRING,
-            VOTES INT
+            VOTES STRING
             );''')
 
 @app.route('/testinsert')
@@ -141,7 +141,6 @@ def insertSession():
     uuid = form["uuid"]
     questions = form["questions"]
 
-    uuid = 'a' + uuid.replace('-', '')
     table_name = uuid
     print("uuid")
     print(uuid)
@@ -160,16 +159,22 @@ def addStuffTODB(roomId, roomName, uuid, questions):
     run_transaction(sessionmaker(bind=engine), lambda s: create(s, uuid))
     print("printing questions")
     for question in questions:
-        run_transaction(sessionmaker(bind=engine), lambda s: insert(s, uuid, question['title'], question['description'], question['votes'], roomId))
+        run_transaction(sessionmaker(bind=engine), lambda s: insert(s, uuid, question['title'], question['description'], question['votes']))
         print("HERE WE ARE")
         # print(question)
 
 
 
 
-def insert(session, uuid, title, question, votes, id):
-    sql = 'INSERT INTO ' + str(uuid) + ' (ID,TITLE, QUESTION, VOTES) VALUES (%d, %s, %s, %d)'
-    session.execute(sql, (4,"a", 'b', int(votes)))
+def insert(session, uuid, title, question, votes):
+    print(uuid)
+
+    sql = 'INSERT INTO ' + uuid + ' (TITLE, QUESTION, VOTES) VALUES (:name, :ques, :vote)'
+    session.execute(sql, {
+        "name":title,
+        "ques":question,
+        "vote":votes
+    })
     # question = Question(
     #     id=3,
     #     title = title,

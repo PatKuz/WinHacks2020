@@ -113,8 +113,28 @@ class ControlPage extends React.Component {
       });
   };
 
-  downloadData = (room) => {
-    console.log(room);
+  downloadData = (uuid) => {
+    //Have to get the uuid of the session somehow
+
+    //pass it into the get request
+    var bodyFormData = new FormData();
+    bodyFormData.append("id", uuid);
+
+    axios({
+      method: "get",
+      url: "http://127.0.0.1:4000/downloadSession",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        //if successesful should return what is needed in the response
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+    console.log(uuid);
   };
 
   saveData = (room, roomUUID) => {

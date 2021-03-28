@@ -140,7 +140,7 @@ const StyledVote = styled(Button)`
   padding: 2px 8px;
   margin-bottom: 10px;
   &:hover {
-    background-color: ${(props) => props.hoverColor};
+    background-color: ${(props) => props.hovercolor};
     color: #ffffff;
   }
 `;
@@ -158,7 +158,7 @@ const StyledConfused = styled(Button)`
   padding: 50px 50px;
   font-size: 24px;
   &:hover {
-    background-color: ${(props) => props.hoverColor};
+    background-color: ${(props) => props.hovercolor};
     color: #ffffff;
   }
 `;
@@ -289,7 +289,7 @@ class Room extends React.Component {
                       ? "#22bc22"
                       : "#ffffff"
                   }
-                  hoverColor={
+                  hovercolor={
                     question.upvotes.hasOwnProperty(studentID)
                       ? "#ff6961"
                       : "#22bc22"

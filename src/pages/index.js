@@ -106,7 +106,12 @@ class IndexPage extends Component {
 
         this.props.firebase
           .user(user.uid)
-          .set({ name: name, email: email, roles: { professor: true } })
+          .set({
+            name: name,
+            email: email,
+            roles: { professor: true },
+            pastSessions: {},
+          })
           .then(() => {
             this.attemptLogin(email, password);
           })

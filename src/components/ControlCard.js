@@ -3,7 +3,32 @@ import styled from "styled-components";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
+import { Button, Modal } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import randomize from "randomatic";
+
+const StyledFormGroup = styled(Form.Group)`
+  background-color: #ffffff;
+  border-radius: 2px;
+  font-family: "Overpass", sans-serif;
+  font-size: 20px;
+  color: #242424;
+  display: inline-block;
+`;
+
+const StyledFormControl = styled(Form.Control)`
+  background-color: #ffffff;
+  position: relative;
+  text-decoration: none;
+  border: 2px solid #5458ec;
+  border-radius: 8px;
+  width: 400px;
+  height: 40px;
+  margin-left: 20px;
+  font-family: "Overpass", sans-serif;
+  font-size: 20px;
+  display: inline-block;
+`;
 
 const StyledContainer = styled(Container)`
   background-color: #ffffff;
@@ -88,16 +113,34 @@ const StyledButtonContainer = styled.div`
 
 class ControlCard extends React.Component {
   state = {
-    render: "student",
+    showHide: false,
+    roomName: "",
+    errorMsg: "",
   };
 
-  setRender = (render) => {
-    if (render === "student" || render === "teacher" || render === "register")
-      this.setState({ render });
-    else this.setState({ render: "student" });
+  handleSessionCreation = () => {
+    const code = randomize("Aa0", 6);
+    const { roomName } = this.state;
+
+    if (roomName !== "") {
+      this.handleModalShowHide();
+      this.props.createSession(code, roomName);
+    } else {
+      this.setState({ errorMsg: "Rooms need a name!" });
+    }
+  };
+
+  handleModalShowHide = () => {
+    this.setState({
+      showHide: !this.state.showHide,
+      roomName: "",
+      errorMsg: "",
+    });
   };
 
   render() {
+    let { showHide, roomName, errorMsg } = this.state;
+
     const PreviousSessions = () =>
       Object.keys(this.props.authUser.pastSessions).map((sessionID) => {
         const session = this.props.authUser.pastSessions[sessionID];
@@ -118,13 +161,50 @@ class ControlCard extends React.Component {
 
     return (
       <StyledContainer>
+        <Modal
+          show={showHide}
+          onHide={() => this.handleModalShowHide()}
+          centered
+        >
+          <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
+            <Modal.Title>Enter Room Name</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h5> {errorMsg} </h5>
+            <Form>
+              <StyledFormGroup controlId="roomname">
+                <StyledFormControl
+                  as="textarea"
+                  placeholder="Room Name"
+                  value={roomName}
+                  onChange={(e) => this.setState({ roomName: e.target.value })}
+                />
+              </StyledFormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => this.handleModalShowHide()}
+            >
+              Close
+            </Button>
+            <Button onClick={() => this.handleSessionCreation()}>
+              Post Question
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         <Row>
           <StyledHeader> Options </StyledHeader>
         </Row>
         <hr />
         <Row>
           <StyledButtonContainer>
-            <StyledButton> Start Session </StyledButton>
+            <StyledButton onClick={() => this.handleModalShowHide()}>
+              {" "}
+              Start Session{" "}
+            </StyledButton>
             <StyledButton onClick={() => this.props.attemptLogout()}>
               {" "}
               Logout{" "}

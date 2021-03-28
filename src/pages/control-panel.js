@@ -23,6 +23,7 @@ class ControlPage extends React.Component {
   state = {
     roomCode: "",
     rooms: null,
+    erroMsg: "",
   };
   unsubRooms = null;
   static contextType = AuthUserContext;
@@ -64,7 +65,13 @@ class ControlPage extends React.Component {
     });
   };
 
+  setErrorMsg = (errorMsg) => {
+    this.setState({ errorMsg: errorMsg });
+    this.forceUpdate();
+  };
+
   setRoomCode = (roomCode) => {
+    this.setErrorMsg("");
     this.setState({ roomCode });
   };
 
@@ -74,17 +81,53 @@ class ControlPage extends React.Component {
       .then(() => {
         navigate("/");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        this.setErrorMsg("Logout failed!");
+      });
+  };
+
+  createSession = (sessionID, sessionName) => {
+    this.props.firebase
+      .room(sessionID)
+      .set({
+        professor: this.context.uid,
+        questions: {},
+        roomName: sessionName,
+      })
+      .then(() => {
+        this.setRoomCode(sessionID);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setErrorMsg("Failed to create a session!");
+      });
   };
 
   downloadData = () => {};
 
   render() {
-    const { rooms, roomCode } = this.state;
+    let { errorMsg, rooms, roomCode } = this.state;
 
     const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
 
-    if (roomCode === "")
+    if (errorMsg !== "")
+      return (
+        <>
+          <SEO title="Home" route="/" />
+          <StyledCentered>
+            <Logo size="large" />
+            <h1> {errorMsg} </h1>
+            <ControlCard
+              authUser={this.context}
+              downloadData={this.downloadData}
+              attemptLogout={this.attemptLogout}
+              createSession={this.createSession}
+            />
+          </StyledCentered>
+        </>
+      );
+    else if (roomCode === "")
       return (
         <>
           <SEO title="Home" route="/" />
@@ -105,6 +148,11 @@ class ControlPage extends React.Component {
           <StyledCentered>
             <Logo size="large" />
             <h1> Room not found! </h1>
+            <ControlCard
+              authUser={this.context}
+              downloadData={this.downloadData}
+              attemptLogout={this.attemptLogout}
+            />
           </StyledCentered>
         </>
       );

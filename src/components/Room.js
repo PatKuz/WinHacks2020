@@ -196,7 +196,6 @@ class Room extends React.Component {
 
     if (questionTitle !== "" && questionBody !== "") {
       this.handleModalShowHide();
-      this.setState({ questionTitle: "", questionBody: "", chips: [] });
       this.props.addQuestion(
         this.props.room.id,
         uuidv4(),

@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import Background from "../images/pattern_4.svg";
 import { Button, Modal } from "react-bootstrap";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "../styles/circular-progressbar.css";
 
 const StyledDiv = styled.div`
   background-color: #ffffff;
@@ -110,8 +108,13 @@ class TeacherRoom extends React.Component {
   constructor() {
     super();
     this.state = {
-      studentID: "",
       showHide: false,
+      data: {
+        sNumber: 0,
+        uNumber: 0,
+        qNumber: 0,
+        tags: {},
+      },
     };
   }
 
@@ -119,12 +122,51 @@ class TeacherRoom extends React.Component {
     this.setState({
       showHide: !this.state.showHide,
     });
+
+    this.updateData();
+  }
+
+  updateData() {
+    let { showHide } = this.state;
+    const questions = this.props.room.questions;
+
+    if (!showHide) {
+      let qNumber = 0;
+      Object.keys(questions).map((key) => qNumber++);
+
+      let sNumber = 0;
+      Object.keys(this.props.room.students).map((key) => sNumber++);
+
+      let uNumber = 0;
+      let tags = {};
+
+      Object.entries(questions).map((val) => {
+        Object.keys(val[1].upvotes).map((key) => uNumber++);
+        val[1].tags.forEach((tag) => {
+          if (tags.hasOwnProperty(tag)) {
+            tags[tag]++;
+          } else {
+            tags[tag] = 0;
+          }
+          return null;
+        });
+
+        return null;
+      });
+
+      this.setState({
+        data: {
+          qNumber,
+          sNumber,
+          uNumber,
+          tags,
+        },
+      });
+    }
   }
 
   render() {
-    const { showHide, errorMsg } = this.state;
-
-    const percentage = 74;
+    const { showHide, errorMsg, data } = this.state;
 
     const OrderedList = Object.entries(this.props.room.questions).sort(
       (a, b) => {
@@ -164,6 +206,16 @@ class TeacherRoom extends React.Component {
         );
       });
 
+    const TagData = () =>
+      Object.entries(data.tags).map((val) => {
+        return (
+          <p>
+            {" "}
+            - {val[0]}: {val[1]}{" "}
+          </p>
+        );
+      });
+
     return (
       <BackgroundDiv>
         <StyledLeave onClick={() => this.props.closeRoom()}>
@@ -188,12 +240,23 @@ class TeacherRoom extends React.Component {
             <h5> {errorMsg} </h5>
 
             <div>
-              Students Actively participating vs Attendees
-              <CircularProgressbar
-                value={percentage}
-                text={`${percentage}% Engaged`}
-              />
-              ;
+              <p>
+                {" "}
+                <strong>Number of Active Questions:</strong> {data.qNumber}{" "}
+              </p>
+              <p>
+                {" "}
+                <strong>Number of Active Students:</strong> {data.sNumber}{" "}
+              </p>
+              <p>
+                {" "}
+                <strong>Number of Upvotes:</strong> {data.uNumber}{" "}
+              </p>
+              <p>
+                {" "}
+                <strong>Number of Each Tag Used:</strong>{" "}
+              </p>
+              <TagData />
             </div>
           </Modal.Body>
           <Modal.Footer>

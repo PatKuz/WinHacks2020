@@ -102,6 +102,7 @@ class ControlPage extends React.Component {
         professor: this.context.uid,
         questions: {},
         roomName: sessionName,
+        students: {},
       })
       .then(() => {
         this.setRoomCode(sessionID);
@@ -206,7 +207,6 @@ class ControlPage extends React.Component {
         </>
       );
     else if (room === undefined || room === null) {
-      localStorage.setItem("roomCode", "");
       return (
         <>
           <SEO title="Home" route="/" />

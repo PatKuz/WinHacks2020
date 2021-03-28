@@ -50,9 +50,11 @@ const BackgroundDiv = styled.div`
 const StyledButton = styled(Button)`
   background-color: #ff6961;
   display: inline-block;
-  margin-left: 95%;
+  margin-left: 90%;
   margin-top: -46%;
-  border-radius: 20px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 15px;
   margin-bottom: 20px;
   text-decoration: none;
   position: fixed;
@@ -268,7 +270,7 @@ class TeacherRoom extends React.Component {
           <Questions />
         </StyledDiv>
         <StyledButton onClick={() => this.handleModalShowHide()}>
-          Statistic
+          Statistics
         </StyledButton>
         <Modal
           show={showHide}

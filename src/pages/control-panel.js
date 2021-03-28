@@ -2,6 +2,7 @@ import * as React from "react";
 import { navigate } from "gatsby";
 import styled from "styled-components";
 import { compose } from "recompose";
+import { v4 as uuidv4 } from "uuid";
 
 import { withFirebase, withAuthorization, AuthUserContext } from "../api/";
 import { Centered } from "../styles/global";
@@ -136,6 +137,26 @@ class ControlPage extends React.Component {
     const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
 
     this.saveData(room);
+
+    const updatedUser = this.context;
+    const uid = uuidv4();
+    updatedUser.pastSessions[uid] = {
+      code: roomCode,
+      name: room.roomName,
+    };
+
+    this.props.firebase
+      .user(this.context.uid)
+      .set({
+        email: updatedUser.email,
+        name: updatedUser.name,
+        pastSessions: updatedUser.pastSessions,
+        roles: updatedUser.roles,
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setErrorMsg("Unable to save your data!");
+      });
 
     this.props.firebase
       .room(roomCode)

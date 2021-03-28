@@ -3,9 +3,10 @@ import { navigate } from "gatsby";
 import styled from "styled-components";
 import { compose } from "recompose";
 
-import { withFirebase, withAuthorization } from "../api/";
+import { withFirebase, withAuthorization, AuthUserContext } from "../api/";
 import { Centered } from "../styles/global";
 import TeacherRoom from "../components/TeacherRoom";
+import ControlCard from "../components/ControlCard";
 import Logo from "../components/Logo";
 import SEO from "../components/SEO";
 
@@ -24,6 +25,7 @@ class ControlPage extends React.Component {
     rooms: null,
   };
   unsubRooms = null;
+  static contextType = AuthUserContext;
 
   componentDidMount() {
     if (this.props.firebase && !this._initFirebase) this.loadData();
@@ -75,6 +77,8 @@ class ControlPage extends React.Component {
       .catch((err) => console.error(err));
   };
 
+  downloadData = () => {};
+
   render() {
     const { rooms, roomCode } = this.state;
 
@@ -86,6 +90,10 @@ class ControlPage extends React.Component {
           <SEO title="Home" route="/" />
           <StyledCentered>
             <Logo size="large" />
+            <ControlCard
+              authUser={this.context}
+              downloadData={this.downloadData}
+            />
           </StyledCentered>
         </>
       );

@@ -35,6 +35,24 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const StyledDivTwo = styled.div`
+  font-family: "Overpass", sans-serif;
+  font-size: 20px;
+  color: #242424;
+  background-color: #e2e2e2;
+  display: inline-block;
+  padding: 10px 10px;
+  width: 96%;
+  border-radius: 10px;
+  margin-top: 8px;
+  text-align: left;
+  height: 180px;
+  border: 2px solid #242424;
+  left: 0;
+  right: 0;
+  margin-left: 2%;
+`;
+
 class ControlCard extends React.Component {
   state = {
     render: "student",
@@ -47,6 +65,24 @@ class ControlCard extends React.Component {
   };
 
   render() {
+    const PreviousSessions = () =>
+      Object.keys(this.props.authUser.pastSessions).map((sessionID) => {
+        const session = this.props.authUser.pastSessions[sessionID];
+
+        return (
+          <StyledDivTwo key={sessionID}>
+            <div> Session Name: {session.name} </div>
+            <div> Session Code: {session.code} [EXPIRED]</div>
+            <hr />
+            <StyledButton
+              onClick={() => this.props.downloadData(session, sessionID)}
+            >
+              Download Session
+            </StyledButton>
+          </StyledDivTwo>
+        );
+      });
+
     return (
       <StyledContainer>
         <Row>
@@ -55,6 +91,14 @@ class ControlCard extends React.Component {
         <hr />
         <Row>
           <StyledButton> Start Session </StyledButton>
+          <StyledButton> Logout </StyledButton>
+        </Row>
+        <hr />
+        <Row>
+          <h1> Past Sessions </h1>
+        </Row>
+        <Row>
+          <PreviousSessions />
         </Row>
       </StyledContainer>
     );

@@ -114,9 +114,6 @@ class ControlPage extends React.Component {
   };
 
   downloadData = (uuid) => {
-    //Have to get the uuid of the session somehow
-    console.log("Downloading");
-    //pass it into the get request
     var bodyFormData = new FormData();
     console.log("This");
     console.log(uuid);

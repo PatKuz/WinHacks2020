@@ -179,6 +179,7 @@ class ControlPage extends React.Component {
               authUser={this.context}
               downloadData={this.downloadData}
               attemptLogout={this.attemptLogout}
+              createSession={this.createSession}
             />
           </StyledCentered>
         </>
@@ -194,6 +195,7 @@ class ControlPage extends React.Component {
               authUser={this.context}
               downloadData={this.downloadData}
               attemptLogout={this.attemptLogout}
+              createSession={this.createSession}
             />
           </StyledCentered>
         </>

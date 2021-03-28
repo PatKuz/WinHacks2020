@@ -129,11 +129,14 @@ class ControlPage extends React.Component {
     console.log("Printing questions");
     for (var key in questions) {
       console.log(questions[key]);
-      parsedQuestions.push({
+      var question = {
         title: questions[key]["description"],
         description: questions[key]["description"],
         votes: "3",
-      });
+      };
+      console.log("I'm printing quesiton");
+      console.log(question);
+      parsedQuestions.push(question);
     }
 
     console.log("Printing out stuff");

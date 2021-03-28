@@ -92,6 +92,7 @@ const StyledButton = styled(Button)`
   border-radius: 20px;
   margin-bottom: 20px;
   text-decoration: none;
+  padding: 
   position: fixed;
   border: 2px solid #ffffff;
   &:hover {
@@ -153,7 +154,8 @@ const StyledConfused = styled(Button)`
   text-decoration: none;
   border-radius: 18px;
   border: 2px solid #242424;
-  padding: 5% 5%;
+  padding: 50px 50px;
+  font-size: 24px;
   &:hover {
     background-color: ${(props) => props.hoverColor};
     color: #ffffff;

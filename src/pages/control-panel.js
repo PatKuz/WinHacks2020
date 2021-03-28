@@ -7,6 +7,7 @@ import axios from "axios";
 import { withFirebase, withAuthorization, AuthUserContext } from "../api/";
 import { Centered } from "../styles/global";
 import TeacherRoom from "../components/TeacherRoom";
+import StoredTeacherRoom from "../components/StoredTeacherRoom";
 import ControlCard from "../components/ControlCard";
 import Logo from "../components/Logo";
 import SEO from "../components/SEO";
@@ -23,8 +24,9 @@ class ControlPage extends React.Component {
   _initFirebase = false;
   state = {
     roomCode: "",
-    rooms: null,
     errorMsg: "",
+    storedRoomCode: "",
+    storedRoom: null,
   };
   unsubRooms = null;
   static contextType = AuthUserContext;
@@ -113,11 +115,11 @@ class ControlPage extends React.Component {
       });
   };
 
-  downloadData = (uuid) => {
+  downloadData = (uuid, roomName, roomID) => {
     var bodyFormData = new FormData();
-    console.log("This");
-    console.log(uuid);
     bodyFormData.append("id", uuid);
+
+    let room = {};
 
     axios({
       method: "get",
@@ -125,20 +127,34 @@ class ControlPage extends React.Component {
       data: bodyFormData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(function (response) {
-        //if successesful should return what is needed in the response
-        console.log(response);
+      .then((response) => {
+        const data = response.data.Results;
+
+        let questions = {};
+
+        data.map((val) => {
+          questions[val.id] = {
+            title: val.title,
+            description: val.question,
+            upvotes: val.votes,
+          };
+          return null;
+        });
+
+        room = {
+          name: roomName,
+          id: roomID,
+          questions: questions,
+        };
+
+        this.setState({ storedRoomCode: roomID, storedRoom: room });
       })
       .catch(function (response) {
-        //handle error
         console.log(response);
       });
-    console.log(uuid);
   };
 
   saveData = (room, roomUUID) => {
-    console.log(room);
-
     var id = room.id;
     var questions = room.questions;
     var roomName = room.roomName;
@@ -259,12 +275,26 @@ class ControlPage extends React.Component {
       });
   };
 
+  closeStoredRoom = () => {
+    this.setState({ storedRoom: null, storedRoomCode: "" });
+  };
+
   render() {
-    let { errorMsg, rooms, roomCode } = this.state;
+    let { errorMsg, rooms, roomCode, storedRoomCode, storedRoom } = this.state;
 
     const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
 
-    if (errorMsg !== "")
+    if (storedRoomCode !== "")
+      return (
+        <>
+          <SEO title="Stored Room" route="/" />
+          <StoredTeacherRoom
+            room={storedRoom}
+            closeRoom={this.closeStoredRoom}
+          />
+        </>
+      );
+    else if (errorMsg !== "")
       return (
         <>
           <SEO title="Home" route="/" />

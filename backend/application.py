@@ -11,6 +11,7 @@ from datetime import timedelta
 from flask import make_response, request, current_app
 from functools import update_wrapper
 from flask_cors import CORS
+import uuid
 
 
 with open('backend/creds.json') as (f):
@@ -30,13 +31,16 @@ seen_account_ids = set()
 
 app = Flask(__name__)
 
+table_name = ""
+
 CORS(app)
 
 class Question(Base):
     """The Question class corresponds to the "qdata" database table.
     """
-    __tablename__ = 'qdata'
+    __tablename__ = table_name
     id = Column(Integer, primary_key=True)
+    title = Column(String)
     question = Column(String)
     votes = Column(Integer)
 
@@ -76,8 +80,8 @@ def createtable(key):
 
 def create(session, key):
     session.execute('CREATE TABLE ' + str(key) + ''' (
-            ID UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-            KEY STRING
+            ID INT PRIMARY KEY NOT NULL,
+            TITLE STRING,
             QUESTION STRING,
             VOTES INT
             );''')
@@ -137,23 +141,39 @@ def insertSession():
     uuid = form["uuid"]
     questions = form["questions"]
 
+    uuid = 'a' + uuid.replace('-', '')
+    table_name = uuid
+    print("uuid")
+    print(uuid)
+
     print(questions)
     questions = json.loads(questions)
     print(questions)
 
     addStuffTODB(roomid, roomName, uuid, questions)
 
-    return Response("Yes", status=200)
+    return "HELLO"
 
 
 def addStuffTODB(roomId, roomName, uuid, questions):
+    print("Making table")
+    run_transaction(sessionmaker(bind=engine), lambda s: create(s, uuid))
     print("printing questions")
     for question in questions:
-        print(question)
+        run_transaction(sessionmaker(bind=engine), lambda s: insert(s, uuid, question['title'], question['description'], question['votes'], roomId))
+        print("HERE WE ARE")
+        # print(question)
 
-    # run_transaction(sessionmaker(bind=engine), lambda s: create(s, roomId))
 
 
 
-def insert(session, uuid, question, votes, id):
-    session.execute('INSERT INTO ' +  str(uuid) + ' (KEY, QUESTION, VOTES) VALUES (' + str(id) + ', ' + str(question) + ', ' + votes  + ');')
+def insert(session, uuid, title, question, votes, id):
+    sql = 'INSERT INTO ' + str(uuid) + ' (ID,TITLE, QUESTION, VOTES) VALUES (%d, %s, %s, %d)'
+    session.execute(sql, (4,"a", 'b', int(votes)))
+    # question = Question(
+    #     id=3,
+    #     title = title,
+    #     question = question,
+    #     votes = votes
+    # )
+    # session.add(question)

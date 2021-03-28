@@ -143,6 +143,7 @@ class ControlPage extends React.Component {
     console.log(parsedQuestions);
     console.log(id);
     console.log(roomName);
+    console.log(roomUUID);
 
     console.log("Stringified Questions");
     parsedQuestions = JSON.stringify(parsedQuestions);
@@ -152,7 +153,7 @@ class ControlPage extends React.Component {
     bodyFormData.append("id", id);
     bodyFormData.append("questions", parsedQuestions);
     bodyFormData.append("roomName", roomName);
-    bodyFormData.append("uuid", roomUUID);
+    bodyFormData.append("uuid", JSON.stringify(roomUUID));
 
     axios({
       method: "post",
@@ -203,14 +204,14 @@ class ControlPage extends React.Component {
     let { roomCode, rooms } = this.state;
     const room = rooms ? rooms.find((r) => r.id === roomCode) : null;
 
-    this.saveData(room);
-
     const updatedUser = this.context;
     const uid = uuidv4();
     updatedUser.pastSessions[uid] = {
       code: roomCode,
       name: room.roomName,
     };
+
+    this.saveData(room, uid);
 
     this.props.firebase
       .user(this.context.uid)

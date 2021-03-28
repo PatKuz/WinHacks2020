@@ -23,7 +23,7 @@ class ControlPage extends React.Component {
   state = {
     roomCode: "",
     rooms: null,
-    erroMsg: "",
+    errorMsg: "",
   };
   unsubRooms = null;
   static contextType = AuthUserContext;
@@ -42,6 +42,10 @@ class ControlPage extends React.Component {
 
   loadData = async () => {
     this._initFirebase = true;
+
+    let storedRoomCode = localStorage.getItem("roomCode");
+    if (storedRoomCode !== null && storedRoomCode !== undefined)
+      this.setState({ roomCode: storedRoomCode });
 
     // eslint-disable-next-line
     const rooms = await new Promise((resolve, reject) => {
@@ -72,6 +76,9 @@ class ControlPage extends React.Component {
 
   setRoomCode = (roomCode) => {
     this.setErrorMsg("");
+
+    localStorage.setItem("roomCode", roomCode);
+
     this.setState({ roomCode });
   };
 

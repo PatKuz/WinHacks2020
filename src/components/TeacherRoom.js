@@ -162,14 +162,15 @@ class TeacherRoom extends React.Component {
 
     return (
       <BackgroundDiv>
+        <h1> {this.props.room.id} </h1>
         <StyledLeave onClick={() => this.props.exitRoom()}>
-          Leave Room
+          End Session
         </StyledLeave>
         <StyledDiv>
           <Questions />
         </StyledDiv>
         <StyledButton onClick={() => this.handleModalShowHide()}>
-          +
+          Statistic
         </StyledButton>
         <Modal
           show={showHide}

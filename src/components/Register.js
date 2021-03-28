@@ -86,7 +86,7 @@ class Register extends React.Component {
           <StyledFormGroup controlId="passwordField">
             Password
             <StyledFormControl
-              type="text"
+              type="password"
               value={password}
               onChange={(e) => this.setState({ password: e.target.value })}
             />
